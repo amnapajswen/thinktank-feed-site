@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-11T01:53",
+  "generated_at": "2026-04-14T00:09",
   "mode": "live",
-  "primary_report_count": 119,
+  "primary_report_count": 108,
   "secondary_report_count": 12,
-  "active_source_count": 12,
+  "active_source_count": 10,
   "primary_source_count": 12,
   "sources": [
     {
@@ -13,7 +13,7 @@
       "status": "disabled",
       "report_count": 0,
       "message": "ライブ収集の対象外です。",
-      "fetched_at": "2026-04-10T16:53:19.858974"
+      "fetched_at": "2026-04-13T15:09:34.754806"
     },
     {
       "slug": "murc_analysis",
@@ -22,7 +22,7 @@
       "status": "ok",
       "report_count": 10,
       "message": "10件を抽出",
-      "fetched_at": "2026-04-10T16:53:16.481542"
+      "fetched_at": "2026-04-13T15:09:26.635110"
     },
     {
       "slug": "nri_column",
@@ -31,7 +31,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-04-10T16:53:18.043238"
+      "fetched_at": "2026-04-13T15:09:31.991160"
     },
     {
       "slug": "the_diplomat",
@@ -40,25 +40,25 @@
       "status": "disabled",
       "report_count": 0,
       "message": "ライブ収集の対象外です。",
-      "fetched_at": "2026-04-10T16:53:19.858963"
+      "fetched_at": "2026-04-13T15:09:34.754774"
     },
     {
       "slug": "mizuho_rt",
       "name": "みずほ銀行 リサーチ",
       "lane": "primary",
-      "status": "ok",
-      "report_count": 8,
-      "message": "手動シードを読み込みました。",
-      "fetched_at": "2026-04-10T16:53:16.777095"
+      "status": "blocked",
+      "report_count": 0,
+      "message": "手動シードが未登録です。",
+      "fetched_at": "2026-04-13T15:09:30.191151"
     },
     {
       "slug": "mizuho_industry",
       "name": "みずほ銀行 産業調査",
       "lane": "primary",
-      "status": "ok",
-      "report_count": 3,
-      "message": "手動シードを読み込みました。",
-      "fetched_at": "2026-04-10T16:53:16.777642"
+      "status": "blocked",
+      "report_count": 0,
+      "message": "手動シードが未登録です。",
+      "fetched_at": "2026-04-13T15:09:30.191245"
     },
     {
       "slug": "nli",
@@ -67,7 +67,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-04-10T16:53:16.776248"
+      "fetched_at": "2026-04-13T15:09:30.190923"
     },
     {
       "slug": "smd_am_daily",
@@ -76,7 +76,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-04-10T16:53:19.567087"
+      "fetched_at": "2026-04-13T15:09:34.116847"
     },
     {
       "slug": "murc",
@@ -85,7 +85,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-04-10T16:53:15.178063"
+      "fetched_at": "2026-04-13T15:09:24.773230"
     },
     {
       "slug": "itochu_research",
@@ -94,7 +94,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-04-10T16:53:19.858949"
+      "fetched_at": "2026-04-13T15:09:34.754688"
     },
     {
       "slug": "dir",
@@ -103,7 +103,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-04-10T16:53:17.075153"
+      "fetched_at": "2026-04-13T15:09:30.520066"
     },
     {
       "slug": "dbj",
@@ -112,7 +112,7 @@
       "status": "ok",
       "report_count": 2,
       "message": "2件を抽出",
-      "fetched_at": "2026-04-10T16:53:19.272559"
+      "fetched_at": "2026-04-13T15:09:33.670927"
     },
     {
       "slug": "jri",
@@ -121,7 +121,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-04-10T16:53:17.492354"
+      "fetched_at": "2026-04-13T15:09:31.100930"
     },
     {
       "slug": "dlri",
@@ -130,7 +130,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-04-10T16:53:18.463331"
+      "fetched_at": "2026-04-13T15:09:32.497487"
     },
     {
       "slug": "nri",
@@ -139,7 +139,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-04-10T16:53:17.967281"
+      "fetched_at": "2026-04-13T15:09:31.750766"
     }
   ]
 }

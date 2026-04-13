@@ -1,0 +1,2995 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thinktank Feed MVP</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Thinktank Feed MVP</p>
+          <h1>シンクタンクの公開レポートを<br />1つのフィードで流す試作</h1>
+          <p class="hero-text">
+            一般ニュースではなく、経済・政策・産業レポートだけを横断で追うためのダイジェストです。
+            今回は「一覧取得」「短要約」「タグ」「絞り込み」までを通した完成見本です。
+          </p>
+        </div>
+        <div class="hero-stats">
+          <article class="stat-card">
+            <span class="stat-label">収集済みレポート</span>
+            <strong>119</strong>
+          </article>
+          
+          <article class="stat-card">
+            <span class="stat-label">別枠記事</span>
+            <strong>12</strong>
+          </article>
+          
+          <article class="stat-card">
+            <span class="stat-label">有効ソース</span>
+            <strong>12 / 12</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">生成モード</span>
+            <strong>live</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">更新時刻</span>
+            <strong>2026-04-11 01:53</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel notice ">
+        
+        <strong>ライブ取得モードです。</strong>
+        抽出できなかったソースは下の「ソース状態」で調整対象として確認できます。
+        
+      </section>
+
+      <section class="layout">
+        <div class="main-column">
+          <section class="panel filters">
+            <div class="filter-row">
+              <label>
+                キーワード
+                <input id="searchInput" type="search" placeholder="例: 日銀 半導体 不動産" />
+              </label>
+              <label>
+                発行元
+                <select id="sourceFilter">
+                  <option value="">すべて</option>
+                  
+                  <option value="MURC 分析レポート">MURC 分析レポート</option>
+                  
+                  <option value="みずほ銀行 リサーチ">みずほ銀行 リサーチ</option>
+                  
+                  <option value="みずほ銀行 産業調査">みずほ銀行 産業調査</option>
+                  
+                  <option value="ニッセイ基礎研究所">ニッセイ基礎研究所</option>
+                  
+                  <option value="三井住友DSアセットマネジメント 日次レポート">三井住友DSアセットマネジメント 日次レポート</option>
+                  
+                  <option value="三菱UFJリサーチ&amp;コンサルティング">三菱UFJリサーチ&amp;コンサルティング</option>
+                  
+                  <option value="伊藤忠総研">伊藤忠総研</option>
+                  
+                  <option value="大和総研">大和総研</option>
+                  
+                  <option value="日本政策投資銀行">日本政策投資銀行</option>
+                  
+                  <option value="日本総研">日本総研</option>
+                  
+                  <option value="第一生命経済研究所">第一生命経済研究所</option>
+                  
+                  <option value="野村総合研究所">野村総合研究所</option>
+                  
+                </select>
+              </label>
+              <label>
+                タグ
+                <select id="tagFilter">
+                  <option value="">すべて</option>
+                  
+                  <option value="AI">AI</option>
+                  
+                  <option value="FRB">FRB</option>
+                  
+                  <option value="インフレ">インフレ</option>
+                  
+                  <option value="エネルギー">エネルギー</option>
+                  
+                  <option value="テクノロジー">テクノロジー</option>
+                  
+                  <option value="マクロ">マクロ</option>
+                  
+                  <option value="不動産">不動産</option>
+                  
+                  <option value="中国">中国</option>
+                  
+                  <option value="労働">労働</option>
+                  
+                  <option value="日本経済">日本経済</option>
+                  
+                  <option value="日銀">日銀</option>
+                  
+                  <option value="消費">消費</option>
+                  
+                  <option value="為替">為替</option>
+                  
+                  <option value="米国経済">米国経済</option>
+                  
+                  <option value="調査レポート">調査レポート</option>
+                  
+                  <option value="財政">財政</option>
+                  
+                  <option value="金利">金利</option>
+                  
+                  <option value="金融制度">金融制度</option>
+                  
+                </select>
+              </label>
+            </div>
+            <div class="chip-row">
+              
+              <button class="chip" type="button" data-tag-chip="調査レポート">調査レポート <span>51</span></button>
+              
+              <button class="chip" type="button" data-tag-chip="日本経済">日本経済 <span>18</span></button>
+              
+              <button class="chip" type="button" data-tag-chip="マクロ">マクロ <span>17</span></button>
+              
+              <button class="chip" type="button" data-tag-chip="AI">AI <span>14</span></button>
+              
+              <button class="chip" type="button" data-tag-chip="米国経済">米国経済 <span>14</span></button>
+              
+              <button class="chip" type="button" data-tag-chip="エネルギー">エネルギー <span>9</span></button>
+              
+              <button class="chip" type="button" data-tag-chip="中国">中国 <span>7</span></button>
+              
+              <button class="chip" type="button" data-tag-chip="消費">消費 <span>6</span></button>
+              
+            </div>
+          </section>
+
+          <section class="feed-list" id="feedList">
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="為替 インフレ エネルギー"
+              data-search="企業物価指数2026年3月～国内企業物価は原油高、円安の影響で、上昇率が前月から拡大～ ニッセイ基礎研究所が為替 / インフレの観点から整理した公開レポートです。論点は「企業物価指数2026年3月～国内企業物価は原油高、円安の影響で、上昇率が前月から拡大～」です。 ニッセイ基礎研究所 為替 インフレ エネルギー"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85192?site=nli" target="_blank" rel="noreferrer">企業物価指数2026年3月～国内企業物価は原油高、円安の影響で、上昇率が前月から拡大～</a></h2>
+              <p class="summary">ニッセイ基礎研究所が為替 / インフレの観点から整理した公開レポートです。論点は「企業物価指数2026年3月～国内企業物価は原油高、円安の影響で、上昇率が前月から拡大～」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">為替</span>
+                
+                <span class="tag">インフレ</span>
+                
+                <span class="tag">エネルギー</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="AI"
+              data-search="インドit株の変調～aiによる「工数削減」とgcc台頭による「内製化」の進展～ ニッセイ基礎研究所がaiの観点から整理した公開レポートです。論点は「インドit株の変調～aiによる「工数削減」とgcc台頭による「内製化」の進展～」です。 ニッセイ基礎研究所 ai"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85194?site=nli" target="_blank" rel="noreferrer">インドIT株の変調～AIによる「工数削減」とGCC台頭による「内製化」の進展～</a></h2>
+              <p class="summary">ニッセイ基礎研究所がAIの観点から整理した公開レポートです。論点は「インドIT株の変調～AIによる「工数削減」とGCC台頭による「内製化」の進展～」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">AI</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="中国 インフレ エネルギー"
+              data-search="中国の物価関連統計（26年3月）～原油価格上昇等の影響でppiが約3年半ぶりに前年同月比で上昇 ニッセイ基礎研究所が中国 / インフレの観点から整理した公開レポートです。論点は「中国の物価関連統計（26年3月）～原油価格上昇等の影響でppiが約3年半ぶりに前年同月比で上昇」です。 ニッセイ基礎研究所 中国 インフレ エネルギー"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85193?site=nli" target="_blank" rel="noreferrer">中国の物価関連統計（26年3月）～原油価格上昇等の影響でPPIが約3年半ぶりに前年同月比で上昇</a></h2>
+              <p class="summary">ニッセイ基礎研究所が中国 / インフレの観点から整理した公開レポートです。論点は「中国の物価関連統計（26年3月）～原油価格上昇等の影響でPPIが約3年半ぶりに前年同月比で上昇」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">中国</span>
+                
+                <span class="tag">インフレ</span>
+                
+                <span class="tag">エネルギー</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="米国経済 インフレ 消費"
+              data-search="米個人所得・消費支出（26年2月）－pce価格指数は市場予想に一致も、戦争前の段階でインフレが高止まりしていたことを確認 ニッセイ基礎研究所が米国経済 / インフレの観点から整理した公開レポートです。論点は「米個人所得・消費支出（26年2月）－pce価格指数は市場予想に一致も、戦争前の段階でインフレが高止まりしていたことを確認」です。 ニッセイ基礎研究所 米国経済 インフレ 消費"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85191?site=nli" target="_blank" rel="noreferrer">米個人所得・消費支出（26年2月）－PCE価格指数は市場予想に一致も、戦争前の段階でインフレが高止まりしていたことを確認</a></h2>
+              <p class="summary">ニッセイ基礎研究所が米国経済 / インフレの観点から整理した公開レポートです。論点は「米個人所得・消費支出（26年2月）－PCE価格指数は市場予想に一致も、戦争前の段階でインフレが高止まりしていたことを確認」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                <span class="tag">インフレ</span>
+                
+                <span class="tag">消費</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="労働"
+              data-search="労働投入量の減少に歯止めはかかるのか－鍵を握る女性の潜在労働力 ニッセイ基礎研究所が労働の観点から整理した公開レポートです。論点は「労働投入量の減少に歯止めはかかるのか－鍵を握る女性の潜在労働力」です。 ニッセイ基礎研究所 労働"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85190?site=nli" target="_blank" rel="noreferrer">労働投入量の減少に歯止めはかかるのか－鍵を握る女性の潜在労働力</a></h2>
+              <p class="summary">ニッセイ基礎研究所が労働の観点から整理した公開レポートです。論点は「労働投入量の減少に歯止めはかかるのか－鍵を握る女性の潜在労働力」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">労働</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="日本経済"
+              data-search="工作機械受注が教えてくれる日本株・世界経済 （26 年３月） 第一生命経済研究所が日本経済の観点から整理したレポートです。工作機械受注が教えてくれる日本株・世界経済。（26 年３月）。 第一生命経済研究所 日本経済"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/macro/593139.html" target="_blank" rel="noreferrer">工作機械受注が教えてくれる日本株・世界経済 （26 年３月）</a></h2>
+              <p class="summary">第一生命経済研究所が日本経済の観点から整理したレポートです。工作機械受注が教えてくれる日本株・世界経済。（26 年３月）。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="マクロ"
+              data-search="2026年・夏のボーナス予測 ～底堅い企業収益を背景に、前年比＋2.5％と5年連続の増加を予想～ 第一生命経済研究所がマクロの観点から整理したレポートです。2026年・夏のボーナス予測。～底堅い企業収益を背景に、前年比＋2.5％と5年連続の増加を予想～。 第一生命経済研究所 マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/macro/593142.html" target="_blank" rel="noreferrer">2026年・夏のボーナス予測 ～底堅い企業収益を背景に、前年比＋2.5％と5年連続の増加を予想～</a></h2>
+              <p class="summary">第一生命経済研究所がマクロの観点から整理したレポートです。2026年・夏のボーナス予測。～底堅い企業収益を背景に、前年比＋2.5％と5年連続の増加を予想～。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="インフレ"
+              data-search="韓国中銀､李昌鏞総裁最後の定例会合は｢様子見｣を強調 ～中東情勢は物価や景気にリスク､金融市場の動向をみつつ様子見姿勢が続く～ 第一生命経済研究所がインフレの観点から整理したレポートです。韓国中銀､李昌鏞総裁最後の定例会合は｢様子見｣を強調。～中東情勢は物価や景気にリスク､金融市場の動向をみつつ様子見姿勢が続く～。 第一生命経済研究所 インフレ"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/macro/593165.html" target="_blank" rel="noreferrer">韓国中銀､李昌鏞総裁最後の定例会合は｢様子見｣を強調 ～中東情勢は物価や景気にリスク､金融市場の動向をみつつ様子見姿勢が続く～</a></h2>
+              <p class="summary">第一生命経済研究所がインフレの観点から整理したレポートです。韓国中銀､李昌鏞総裁最後の定例会合は｢様子見｣を強調。～中東情勢は物価や景気にリスク､金融市場の動向をみつつ様子見姿勢が続く～。</p>
+              <div class="tag-row">
+                
+                <span class="tag">インフレ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="中国 インフレ 不動産"
+              data-search="中国､企業はインフレに直面も､家計はデフレ圧力を脱せず ～中東情勢悪化による原油高の一方､家計部門は雇用不安と不動産不況の｢呪縛｣が続く～ 第一生命経済研究所が中国 / インフレの観点から整理したレポートです。中国､企業はインフレに直面も､家計はデフレ圧力を脱せず。～中東情勢悪化による原油高の一方､家計部門は雇用不安と不動産不況の｢呪縛｣が続く～。 第一生命経済研究所 中国 インフレ 不動産"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/macro/593172.html" target="_blank" rel="noreferrer">中国､企業はインフレに直面も､家計はデフレ圧力を脱せず ～中東情勢悪化による原油高の一方､家計部門は雇用不安と不動産不況の｢呪縛｣が続く～</a></h2>
+              <p class="summary">第一生命経済研究所が中国 / インフレの観点から整理したレポートです。中国､企業はインフレに直面も､家計はデフレ圧力を脱せず。～中東情勢悪化による原油高の一方､家計部門は雇用不安と不動産不況の｢呪縛｣が続く～。</p>
+              <div class="tag-row">
+                
+                <span class="tag">中国</span>
+                
+                <span class="tag">インフレ</span>
+                
+                <span class="tag">不動産</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="日本経済"
+              data-search="日本はオーバーバンキングなのか 第一生命経済研究所が日本経済の観点から整理した公開レポートです。論点は「日本はオーバーバンキングなのか」です。 第一生命経済研究所 日本経済"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/macro/593162.html" target="_blank" rel="noreferrer">日本はオーバーバンキングなのか</a></h2>
+              <p class="summary">第一生命経済研究所が日本経済の観点から整理した公開レポートです。論点は「日本はオーバーバンキングなのか」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="エネルギー"
+              data-search="台湾・３月輸出額は過去最高額を更新（asia weekly(4/6～4/10)） ～台湾、タイ、フィリピンで原油高がエネルギー価格を大きく押し上げる動き～ 第一生命経済研究所がエネルギーの観点から整理したレポートです。台湾・３月輸出額は過去最高額を更新（asia。weekly(4/6～4/10)） ～台湾、タイ、フィリピンで原油高がエネルギー価格を大きく押し上げる動き～。 第一生命経済研究所 エネルギー"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/macro/593179.html" target="_blank" rel="noreferrer">台湾・３月輸出額は過去最高額を更新（Asia Weekly(4/6～4/10)） ～台湾、タイ、フィリピンで原油高がエネルギー価格を大きく押し上げる動き～</a></h2>
+              <p class="summary">第一生命経済研究所がエネルギーの観点から整理したレポートです。台湾・３月輸出額は過去最高額を更新（Asia。Weekly(4/6～4/10)） ～台湾、タイ、フィリピンで原油高がエネルギー価格を大きく押し上げる動き～。</p>
+              <div class="tag-row">
+                
+                <span class="tag">エネルギー</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="MURC 分析レポート"
+              data-tags="消費"
+              data-search="消費税減税と給付付き税額控除の効果と課題 murc 分析レポートが消費の観点から整理した公開レポートです。論点は「消費税減税と給付付き税額控除の効果と課題」です。 murc 分析レポート 消費"
+            >
+              <div class="report-meta">
+                <span class="source">MURC 分析レポート</span>
+                <span class="date">2026-04-10</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/economyresearch/analysis/research/report_260410/" target="_blank" rel="noreferrer">消費税減税と給付付き税額控除の効果と課題</a></h2>
+              <p class="summary">MURC 分析レポートが消費の観点から整理した公開レポートです。論点は「消費税減税と給付付き税額控除の効果と課題」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">消費</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="調査レポート"
+              data-search="雑音のない通信－通信に制約がある場合、通信容量はどのくらい減少するか ニッセイ基礎研究所が調査レポートの観点から整理した公開レポートです。論点は「雑音のない通信－通信に制約がある場合、通信容量はどのくらい減少するか」です。 ニッセイ基礎研究所 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-09</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85189?site=nli" target="_blank" rel="noreferrer">雑音のない通信－通信に制約がある場合、通信容量はどのくらい減少するか</a></h2>
+              <p class="summary">ニッセイ基礎研究所が調査レポートの観点から整理した公開レポートです。論点は「雑音のない通信－通信に制約がある場合、通信容量はどのくらい減少するか」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="AI 消費"
+              data-search="ai-ready時代、消費者データをどう意思決定につなげるか～20代データで考える、生成ai時代の施策設計 ニッセイ基礎研究所がai / 消費の観点から整理した公開レポートです。論点は「ai-ready時代、消費者データをどう意思決定につなげるか～20代データで考える、生成ai時代の施策設計」です。 ニッセイ基礎研究所 ai 消費"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-09</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85168?site=nli" target="_blank" rel="noreferrer">AI-Ready時代、消費者データをどう意思決定につなげるか～20代データで考える、生成AI時代の施策設計</a></h2>
+              <p class="summary">ニッセイ基礎研究所がAI / 消費の観点から整理した公開レポートです。論点は「AI-Ready時代、消費者データをどう意思決定につなげるか～20代データで考える、生成AI時代の施策設計」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">AI</span>
+                
+                <span class="tag">消費</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="マクロ"
+              data-search="景気ウォッチャー調査2026年3月～中東情勢の緊迫化を受けて、景況感は現状、先行きともに大幅悪化～ ニッセイ基礎研究所がマクロの観点から整理した公開レポートです。論点は「景気ウォッチャー調査2026年3月～中東情勢の緊迫化を受けて、景況感は現状、先行きともに大幅悪化～」です。 ニッセイ基礎研究所 マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-09</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85170?site=nli" target="_blank" rel="noreferrer">景気ウォッチャー調査2026年3月～中東情勢の緊迫化を受けて、景況感は現状、先行きともに大幅悪化～</a></h2>
+              <p class="summary">ニッセイ基礎研究所がマクロの観点から整理した公開レポートです。論点は「景気ウォッチャー調査2026年3月～中東情勢の緊迫化を受けて、景況感は現状、先行きともに大幅悪化～」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="マクロ"
+              data-search="国内株に待機資金も流入か？～2026年３月の投信動向～ ニッセイ基礎研究所がマクロの観点から整理した公開レポートです。論点は「国内株に待機資金も流入か？～2026年３月の投信動向～」です。 ニッセイ基礎研究所 マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-09</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85169?site=nli" target="_blank" rel="noreferrer">国内株に待機資金も流入か？～2026年３月の投信動向～</a></h2>
+              <p class="summary">ニッセイ基礎研究所がマクロの観点から整理した公開レポートです。論点は「国内株に待機資金も流入か？～2026年３月の投信動向～」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="日本経済 エネルギー 消費"
+              data-search="日本経済：ガソリン価格高騰で消費者マインドが悪化、株価変動による個人消費への影響（資産効果）は以前よりも拡大 日本経済をテーマにした伊藤忠総研の公開レポートです。ガソリン価格高騰で消費者マインドが悪化、株価変動による個人消費への影響（資産効果）は以前よりも拡大。 伊藤忠総研 日本経済 エネルギー 消費"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-04-09</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3198/" target="_blank" rel="noreferrer">日本経済：ガソリン価格高騰で消費者マインドが悪化、株価変動による個人消費への影響（資産効果）は以前よりも拡大</a></h2>
+              <p class="summary">日本経済をテーマにした伊藤忠総研の公開レポートです。ガソリン価格高騰で消費者マインドが悪化、株価変動による個人消費への影響（資産効果）は以前よりも拡大。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                <span class="tag">エネルギー</span>
+                
+                <span class="tag">消費</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="調査レポート"
+              data-search="在職老齢年金制度と「年金の壁」65万円への引き上げ ～「エイジレス社会」に向けて広がるシニアの就労・年金・資産の選択肢～ 第一生命経済研究所が調査レポートの観点から整理したレポートです。在職老齢年金制度と「年金の壁」65万円への引き上げ。～「エイジレス社会」に向けて広がるシニアの就労・年金・資産の選択肢～。 第一生命経済研究所 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-09</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/ld/593072.html" target="_blank" rel="noreferrer">在職老齢年金制度と「年金の壁」65万円への引き上げ ～「エイジレス社会」に向けて広がるシニアの就労・年金・資産の選択肢～</a></h2>
+              <p class="summary">第一生命経済研究所が調査レポートの観点から整理したレポートです。在職老齢年金制度と「年金の壁」65万円への引き上げ。～「エイジレス社会」に向けて広がるシニアの就労・年金・資産の選択肢～。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="調査レポート"
+              data-search="ベトナムの高成長目標に暗雲､１-３月gdpは前年比＋7.83％に鈍化 ～イラン情勢､強権姿勢への懸念はあるが､金融市場は｢その後｣を見据える動きも～ 第一生命経済研究所が調査レポートの観点から整理したレポートです。ベトナムの高成長目標に暗雲､１-３月gdpは前年比＋7.83％に鈍化。～イラン情勢､強権姿勢への懸念はあるが､金融市場は｢その後｣を見据える動きも～。 第一生命経済研究所 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-09</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/macro/593092.html" target="_blank" rel="noreferrer">ベトナムの高成長目標に暗雲､１-３月GDPは前年比＋7.83％に鈍化 ～イラン情勢､強権姿勢への懸念はあるが､金融市場は｢その後｣を見据える動きも～</a></h2>
+              <p class="summary">第一生命経済研究所が調査レポートの観点から整理したレポートです。ベトナムの高成長目標に暗雲､１-３月GDPは前年比＋7.83％に鈍化。～イラン情勢､強権姿勢への懸念はあるが､金融市場は｢その後｣を見据える動きも～。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="調査レポート"
+              data-search="ｅｕの未来を占うハンガリー総選挙 ～オルバン体制に終止符か？～ 第一生命経済研究所が調査レポートの観点から整理したレポートです。ｅｕの未来を占うハンガリー総選挙。～オルバン体制に終止符か？～。 第一生命経済研究所 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-09</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/macro/593126.html" target="_blank" rel="noreferrer">ＥＵの未来を占うハンガリー総選挙 ～オルバン体制に終止符か？～</a></h2>
+              <p class="summary">第一生命経済研究所が調査レポートの観点から整理したレポートです。ＥＵの未来を占うハンガリー総選挙。～オルバン体制に終止符か？～。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="米国経済"
+              data-search="米国：低採用・低解雇の背景 ～米イラン停戦後も、企業が採用に消極的なリスク～ 米国をテーマにした第一生命経済研究所の公開レポートです。低採用・低解雇の背景 ～米イラン停戦後も、企業が採用に消極的なリスク～。 第一生命経済研究所 米国経済"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-09</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/macro/593130.html" target="_blank" rel="noreferrer">米国：低採用・低解雇の背景 ～米イラン停戦後も、企業が採用に消極的なリスク～</a></h2>
+              <p class="summary">米国をテーマにした第一生命経済研究所の公開レポートです。低採用・低解雇の背景 ～米イラン停戦後も、企業が採用に消極的なリスク～。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="金融制度"
+              data-search="アクティビスト投資家の近時動向（2026年4月） 大和総研が金融制度の観点から整理した公開レポートです。論点は「アクティビスト投資家の近時動向（2026年4月）」です。 大和総研 金融制度"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2026-04-09</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/activist/20260409_025687.html" target="_blank" rel="noreferrer">アクティビスト投資家の近時動向（2026年4月）</a></h2>
+              <p class="summary">大和総研が金融制度の観点から整理した公開レポートです。論点は「アクティビスト投資家の近時動向（2026年4月）」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">金融制度</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="中国"
+              data-search="中国のギグワーク、二層化と再配置 ニッセイ基礎研究所が中国の観点から整理した公開レポートです。論点は「中国のギグワーク、二層化と再配置」です。 ニッセイ基礎研究所 中国"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-08</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85151?site=nli" target="_blank" rel="noreferrer">中国のギグワーク、二層化と再配置</a></h2>
+              <p class="summary">ニッセイ基礎研究所が中国の観点から整理した公開レポートです。論点は「中国のギグワーク、二層化と再配置」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">中国</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="調査レポート"
+              data-search="太陽hdの公開買付け－公開買付けの予告と公開買付けの撤回 ニッセイ基礎研究所が調査レポートの観点から整理した公開レポートです。論点は「太陽hdの公開買付け－公開買付けの予告と公開買付けの撤回」です。 ニッセイ基礎研究所 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-08</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85150?site=nli" target="_blank" rel="noreferrer">太陽HDの公開買付け－公開買付けの予告と公開買付けの撤回</a></h2>
+              <p class="summary">ニッセイ基礎研究所が調査レポートの観点から整理した公開レポートです。論点は「太陽HDの公開買付け－公開買付けの予告と公開買付けの撤回」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="調査レポート"
+              data-search="インド中銀､景気見通しを下方修正も､様子見姿勢を維持 ～様子見姿勢継続も､見通しの再修正の可能性は残り､市場もイラン情勢の動向に左右される～ 第一生命経済研究所が調査レポートの観点から整理したレポートです。インド中銀､景気見通しを下方修正も､様子見姿勢を維持。～様子見姿勢継続も､見通しの再修正の可能性は残り､市場もイラン情勢の動向に左右される～。 第一生命経済研究所 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-08</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/macro/593056.html" target="_blank" rel="noreferrer">インド中銀､景気見通しを下方修正も､様子見姿勢を維持 ～様子見姿勢継続も､見通しの再修正の可能性は残り､市場もイラン情勢の動向に左右される～</a></h2>
+              <p class="summary">第一生命経済研究所が調査レポートの観点から整理したレポートです。インド中銀､景気見通しを下方修正も､様子見姿勢を維持。～様子見姿勢継続も､見通しの再修正の可能性は残り､市場もイラン情勢の動向に左右される～。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="第一生命経済研究所"
+              data-tags="米国経済"
+              data-search="米・イラン一時停戦で注目されるポイント ～ホルムズ海峡通行料とイスラエルの対応がカギ 第一生命経済研究所が米国経済の観点から整理したレポートです。米・イラン一時停戦で注目されるポイント。～ホルムズ海峡通行料とイスラエルの対応がカギ。 第一生命経済研究所 米国経済"
+            >
+              <div class="report-meta">
+                <span class="source">第一生命経済研究所</span>
+                <span class="date">2026-04-08</span>
+              </div>
+              <h2><a href="https://www.dlri.co.jp/report/macro/593061.html" target="_blank" rel="noreferrer">米・イラン一時停戦で注目されるポイント ～ホルムズ海峡通行料とイスラエルの対応がカギ</a></h2>
+              <p class="summary">第一生命経済研究所が米国経済の観点から整理したレポートです。米・イラン一時停戦で注目されるポイント。～ホルムズ海峡通行料とイスラエルの対応がカギ。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="AI"
+              data-search="技術・知財×生成aiによる新たな収益の柱の創出 三菱ufjリサーチ&amp;コンサルティングがaiの観点から整理した公開レポートです。論点は「技術・知財×生成aiによる新たな収益の柱の創出」です。 三菱ufjリサーチ&amp;コンサルティング ai"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2026-04-08</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/cr_260408/" target="_blank" rel="noreferrer">技術・知財×生成AIによる新たな収益の柱の創出</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングがAIの観点から整理した公開レポートです。論点は「技術・知財×生成AIによる新たな収益の柱の創出」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">AI</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="調査レポート"
+              data-search="首都圏大規模水害で想定される事態 野村総合研究所が調査レポートの観点から整理した公開レポートです。論点は「首都圏大規模水害で想定される事態」です。 野村総合研究所 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-04-08</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/20260408_1.html" target="_blank" rel="noreferrer">首都圏大規模水害で想定される事態</a></h2>
+              <p class="summary">野村総合研究所が調査レポートの観点から整理した公開レポートです。論点は「首都圏大規模水害で想定される事態」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="ニッセイ基礎研究所"
+              data-tags="エネルギー"
+              data-search="長引くホルムズ封鎖、原油・ガソリン価格のシナリオは？ ニッセイ基礎研究所がエネルギーの観点から整理した公開レポートです。論点は「長引くホルムズ封鎖、原油・ガソリン価格のシナリオは？」です。 ニッセイ基礎研究所 エネルギー"
+            >
+              <div class="report-meta">
+                <span class="source">ニッセイ基礎研究所</span>
+                <span class="date">2026-04-07</span>
+              </div>
+              <h2><a href="https://www.nli-research.co.jp/topics_detail1/id=85149?site=nli" target="_blank" rel="noreferrer">長引くホルムズ封鎖、原油・ガソリン価格のシナリオは？</a></h2>
+              <p class="summary">ニッセイ基礎研究所がエネルギーの観点から整理した公開レポートです。論点は「長引くホルムズ封鎖、原油・ガソリン価格のシナリオは？」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">エネルギー</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="調査レポート"
+              data-search="東南アジア経済：中東情勢悪化の影響が早くも顕在化 東南アジア経済をテーマにした伊藤忠総研の公開レポートです。中東情勢悪化の影響が早くも顕在化。 伊藤忠総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-04-07</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3194/" target="_blank" rel="noreferrer">東南アジア経済：中東情勢悪化の影響が早くも顕在化</a></h2>
+              <p class="summary">東南アジア経済をテーマにした伊藤忠総研の公開レポートです。中東情勢悪化の影響が早くも顕在化。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="MURC 分析レポート"
+              data-tags="金利"
+              data-search="利上げ時期を見定める欧州 murc 分析レポートが金利の観点から整理した公開レポートです。論点は「利上げ時期を見定める欧州」です。 murc 分析レポート 金利"
+            >
+              <div class="report-meta">
+                <span class="source">MURC 分析レポート</span>
+                <span class="date">2026-04-07</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/economyresearch/analysis/research/report_260407/" target="_blank" rel="noreferrer">利上げ時期を見定める欧州</a></h2>
+              <p class="summary">MURC 分析レポートが金利の観点から整理した公開レポートです。論点は「利上げ時期を見定める欧州」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">金利</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="調査レポート"
+              data-search="欧州経済：ハンガリー総選挙で16年ぶりに政権交代の可能性 －野党勝利ならeuの一体感が回復、ウクライナ支援も円滑化－ 欧州経済をテーマにした伊藤忠総研の公開レポートです。ハンガリー総選挙で16年ぶりに政権交代の可能性 －野党勝利ならeuの一体感が回復、ウクライナ支援も円滑化－。 伊藤忠総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-04-06</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3193/" target="_blank" rel="noreferrer">欧州経済：ハンガリー総選挙で16年ぶりに政権交代の可能性 －野党勝利ならEUの一体感が回復、ウクライナ支援も円滑化－</a></h2>
+              <p class="summary">欧州経済をテーマにした伊藤忠総研の公開レポートです。ハンガリー総選挙で16年ぶりに政権交代の可能性 －野党勝利ならEUの一体感が回復、ウクライナ支援も円滑化－。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="調査レポート"
+              data-search="nisa普及における地域間較差の要因分析と政策的⽰唆 野村総合研究所が調査レポートの観点から整理した公開レポートです。論点は「nisa普及における地域間較差の要因分析と政策的⽰唆」です。 野村総合研究所 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-04-06</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/20260406_1.html" target="_blank" rel="noreferrer">NISA普及における地域間較差の要因分析と政策的⽰唆</a></h2>
+              <p class="summary">野村総合研究所が調査レポートの観点から整理した公開レポートです。論点は「NISA普及における地域間較差の要因分析と政策的⽰唆」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="調査レポート"
+              data-search="こども家庭庁 令和7年度子ども・子育て支援等推進調査研究事業 実施報告 日本総研が調査レポートの観点から整理したレポートです。こども家庭庁。令和7年度子ども・子育て支援等推進調査研究事業 実施報告。 日本総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-04-06</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113738" target="_blank" rel="noreferrer">こども家庭庁 令和7年度子ども・子育て支援等推進調査研究事業 実施報告</a></h2>
+              <p class="summary">日本総研が調査レポートの観点から整理したレポートです。こども家庭庁。令和7年度子ども・子育て支援等推進調査研究事業 実施報告。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="調査レポート"
+              data-search="非財務情報は企業価値に寄与するか 大和総研が調査レポートの観点から整理した公開レポートです。論点は「非財務情報は企業価値に寄与するか」です。 大和総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2026-04-03</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/human-capital-management/20260403_025676.html" target="_blank" rel="noreferrer">非財務情報は企業価値に寄与するか</a></h2>
+              <p class="summary">大和総研が調査レポートの観点から整理した公開レポートです。論点は「非財務情報は企業価値に寄与するか」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="みずほ銀行 リサーチ"
+              data-tags="財政"
+              data-search="［みずほ経済インサイト］高債務下の財政政策と社会保障改革 財政の持続性向上に向けた課題と給付付き税額控除 先進国では長期金利に上昇圧力、日本も例外ではない。各国で政策や選挙の影響もあり、政府債務残高対gdp比は高止まりを続けている / 高債務下では財政政策の効果は低くなる傾向を示すため、的を絞った政策が重要。他方で日本の財政目標は法的裏付けが薄く、目標指標を設定する際は透明性とモニタリング確保が必要 みずほ銀行 リサーチ 財政"
+            >
+              <div class="report-meta">
+                <span class="source">みずほ銀行 リサーチ</span>
+                <span class="date">2026-04-03</span>
+              </div>
+              <h2><a href="https://www.mizuhobank.co.jp/corporate/mhri/research/report/2026-0037/index.html" target="_blank" rel="noreferrer">［みずほ経済インサイト］高債務下の財政政策と社会保障改革</a></h2>
+              <p class="summary">財政の持続性向上に向けた課題と給付付き税額控除 先進国では長期金利に上昇圧力、日本も例外ではない。各国で政策や選挙の影響もあり、政府債務残高対GDP比は高止まりを続けている / 高債務下では財政政策の効果は低くなる傾向を示すため、的を絞った政策が重要。他方で日本の財政目標は法的裏付けが薄く、目標指標を設定する際は透明性とモニタリング確保が必要</p>
+              <div class="tag-row">
+                
+                <span class="tag">財政</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="米国経済 金利 FRB"
+              data-search="米国経済：frbは原油高の影響見極めのため利下げを休止 米国経済をテーマにした伊藤忠総研の公開レポートです。frbは原油高の影響見極めのため利下げを休止。 伊藤忠総研 米国経済 金利 frb"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-04-02</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3187/" target="_blank" rel="noreferrer">米国経済：FRBは原油高の影響見極めのため利下げを休止</a></h2>
+              <p class="summary">米国経済をテーマにした伊藤忠総研の公開レポートです。FRBは原油高の影響見極めのため利下げを休止。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                <span class="tag">金利</span>
+                
+                <span class="tag">FRB</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="金利"
+              data-search="英国経済：イラン情勢の悪化でboeの利下げは一時停止 英国経済をテーマにした伊藤忠総研の公開レポートです。イラン情勢の悪化でboeの利下げは一時停止。 伊藤忠総研 金利"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-04-02</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3188/" target="_blank" rel="noreferrer">英国経済：イラン情勢の悪化でBOEの利下げは一時停止</a></h2>
+              <p class="summary">英国経済をテーマにした伊藤忠総研の公開レポートです。イラン情勢の悪化でBOEの利下げは一時停止。</p>
+              <div class="tag-row">
+                
+                <span class="tag">金利</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="日本経済 日銀"
+              data-search="日銀短観3月調査: 製造業の景況感は改善、イラン情勢の影響は限定的 伊藤忠総研が日本経済 / 日銀の観点から整理したレポートです。日銀短観3月調査:。製造業の景況感は改善、イラン情勢の影響は限定的。 伊藤忠総研 日本経済 日銀"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-04-01</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3185/" target="_blank" rel="noreferrer">日銀短観3月調査: 製造業の景況感は改善、イラン情勢の影響は限定的</a></h2>
+              <p class="summary">伊藤忠総研が日本経済 / 日銀の観点から整理したレポートです。日銀短観3月調査:。製造業の景況感は改善、イラン情勢の影響は限定的。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                <span class="tag">日銀</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="みずほ銀行 リサーチ"
+              data-tags="調査レポート"
+              data-search="［みずほ経済インサイト］成長の岐路に立つasean 中期的視点でみる主要5カ国の成長性 aseanの成長局面は変化を迎えつつある。asean主要国は上位中所得～下位中所得のレンジに存在している。おおむね所得水準は上昇傾向にあるものの、一部では中所得国のまま成長が停滞するケースが見受けられる / 人口動態の変化、高齢化により、asean主要国の潜在的な成長力には下方圧力がかかりつつある。asean主要国が中所得国から高所得国へステップアップするには、各国固有の成長課題や制約をクリアし... みずほ銀行 リサーチ 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">みずほ銀行 リサーチ</span>
+                <span class="date">2026-04-01</span>
+              </div>
+              <h2><a href="https://www.mizuhobank.co.jp/corporate/mhri/research/report/2026-0035/index.html" target="_blank" rel="noreferrer">［みずほ経済インサイト］成長の岐路に立つASEAN</a></h2>
+              <p class="summary">中期的視点でみる主要5カ国の成長性 ASEANの成長局面は変化を迎えつつある。ASEAN主要国は上位中所得～下位中所得のレンジに存在している。おおむね所得水準は上昇傾向にあるものの、一部では中所得国のまま成長が停滞するケースが見受けられる / 人口動態の変化、高齢化により、ASEAN主要国の潜在的な成長力には下方圧力がかかりつつある。ASEAN主要国が中所得国から高所得国へステップアップするには、各国固有の成長課題や制約をクリアし...</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="みずほ銀行 リサーチ"
+              data-tags="調査レポート"
+              data-search="［みずほ経済インサイト］ハンガリーで政権交代の可能性 選挙を経てもeuとの対立は残存する可能性 ハンガリーでは4月12日に総選挙が予定される。世論調査では、与党fideszは新興右派政党tiszaに支持率で大きく引き離されており、オルバーン首相退陣の可能性も出ている / オルバーン首相はウクライナ支援等を巡りeuと頻繁に対立してきたため、政権交代により同国とeuの関係が改善し、eu内の合意形成が円滑化するとの期待が高まっている みずほ銀行 リサーチ 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">みずほ銀行 リサーチ</span>
+                <span class="date">2026-04-01</span>
+              </div>
+              <h2><a href="https://www.mizuhobank.co.jp/corporate/mhri/research/report/2026-0036/index.html" target="_blank" rel="noreferrer">［みずほ経済インサイト］ハンガリーで政権交代の可能性</a></h2>
+              <p class="summary">選挙を経てもEUとの対立は残存する可能性 ハンガリーでは4月12日に総選挙が予定される。世論調査では、与党Fideszは新興右派政党Tiszaに支持率で大きく引き離されており、オルバーン首相退陣の可能性も出ている / オルバーン首相はウクライナ支援等を巡りEUと頻繁に対立してきたため、政権交代により同国とEUの関係が改善し、EU内の合意形成が円滑化するとの期待が高まっている</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="調査レポート"
+              data-search="再生医療周辺産業の全体像と新規参入戦略 三菱ufjリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「再生医療周辺産業の全体像と新規参入戦略」です。 三菱ufjリサーチ&amp;コンサルティング 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2026-04-01</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/cr_260401/" target="_blank" rel="noreferrer">再生医療周辺産業の全体像と新規参入戦略</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「再生医療周辺産業の全体像と新規参入戦略」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="みずほ銀行 リサーチ"
+              data-tags="調査レポート"
+              data-search="［mhrt global watch］mhrt global watch 3月31日号 イラン戦争長期化で揺らぐ米の財政・政治基盤 米国：戦費拡大で財政悪化、金利にジワリ上昇圧力 / 欧州：企業・家計ともに景況感は悪化。イラン情勢緊迫化に伴う物価上昇が個人消費の重石に みずほ銀行 リサーチ 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">みずほ銀行 リサーチ</span>
+                <span class="date">2026-03-31</span>
+              </div>
+              <h2><a href="https://www.mizuhobank.co.jp/corporate/mhri/research/report/2026-0034/index.html" target="_blank" rel="noreferrer">［MHRT Global Watch］MHRT Global Watch 3月31日号</a></h2>
+              <p class="summary">イラン戦争長期化で揺らぐ米の財政・政治基盤 米国：戦費拡大で財政悪化、金利にジワリ上昇圧力 / 欧州：企業・家計ともに景況感は悪化。イラン情勢緊迫化に伴う物価上昇が個人消費の重石に</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="中国"
+              data-search="中国経済：全人代で成長率目標を「4.5～5％」に引き下げ 中国経済をテーマにした伊藤忠総研の公開レポートです。全人代で成長率目標を「4.5～5％」に引き下げ。 伊藤忠総研 中国"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-03-30</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3180/" target="_blank" rel="noreferrer">中国経済：全人代で成長率目標を「4.5～5％」に引き下げ</a></h2>
+              <p class="summary">中国経済をテーマにした伊藤忠総研の公開レポートです。全人代で成長率目標を「4.5～5％」に引き下げ。</p>
+              <div class="tag-row">
+                
+                <span class="tag">中国</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="MURC 分析レポート"
+              data-tags="調査レポート"
+              data-search="イラン情勢緊迫化で問われるeuの脱ロシア戦略 murc 分析レポートが調査レポートの観点から整理した公開レポートです。論点は「イラン情勢緊迫化で問われるeuの脱ロシア戦略」です。 murc 分析レポート 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">MURC 分析レポート</span>
+                <span class="date">2026-03-30</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/economyresearch/analysis/research/report_260330/" target="_blank" rel="noreferrer">イラン情勢緊迫化で問われるEUの脱ロシア戦略</a></h2>
+              <p class="summary">MURC 分析レポートが調査レポートの観点から整理した公開レポートです。論点は「イラン情勢緊迫化で問われるEUの脱ロシア戦略」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="調査レポート"
+              data-search="「子どものウェルビーイングと体験デザイン」 人口減少時代の希望と価値創造 ～未来を担う声を聴く社会へ～シリーズ 第4回シンポジウム 日本総研が調査レポートの観点から整理したレポートです。「子どものウェルビーイングと体験デザイン」。人口減少時代の希望と価値創造 ～未来を担う声を聴く社会へ～シリーズ 第4回シンポジウム。 日本総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-03-30</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113707" target="_blank" rel="noreferrer">「子どものウェルビーイングと体験デザイン」 人口減少時代の希望と価値創造 ～未来を担う声を聴く社会へ～シリーズ 第4回シンポジウム</a></h2>
+              <p class="summary">日本総研が調査レポートの観点から整理したレポートです。「子どものウェルビーイングと体験デザイン」。人口減少時代の希望と価値創造 ～未来を担う声を聴く社会へ～シリーズ 第4回シンポジウム。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="日本経済"
+              data-search="不確実性高まる中でスタグフレーション・リスクも浮上－日本経済情報2026年3月号 伊藤忠総研が日本経済の観点から整理した公開レポートです。論点は「不確実性高まる中でスタグフレーション・リスクも浮上－日本経済情報2026年3月号」です。 伊藤忠総研 日本経済"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-03-27</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3175/" target="_blank" rel="noreferrer">不確実性高まる中でスタグフレーション・リスクも浮上－日本経済情報2026年3月号</a></h2>
+              <p class="summary">伊藤忠総研が日本経済の観点から整理した公開レポートです。論点は「不確実性高まる中でスタグフレーション・リスクも浮上－日本経済情報2026年3月号」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="調査レポート"
+              data-search="欧州経済：中東情勢の悪化でecbはタカ派姿勢を強める 欧州経済をテーマにした伊藤忠総研の公開レポートです。中東情勢の悪化でecbはタカ派姿勢を強める。 伊藤忠総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-03-27</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3178/" target="_blank" rel="noreferrer">欧州経済：中東情勢の悪化でECBはタカ派姿勢を強める</a></h2>
+              <p class="summary">欧州経済をテーマにした伊藤忠総研の公開レポートです。中東情勢の悪化でECBはタカ派姿勢を強める。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="日本経済"
+              data-search="2026年4月の注目イベント 日本の金融政策に注目 三井住友dsアセットマネジメント 日次レポートが日本経済の観点から整理した公開レポートです。論点は「2026年4月の注目イベント 日本の金融政策に注目」です。 三井住友dsアセットマネジメント 日次レポート 日本経済"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2026-03-27</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2026/03/news260327gl/" target="_blank" rel="noreferrer">2026年4月の注目イベント 日本の金融政策に注目</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートが日本経済の観点から整理した公開レポートです。論点は「2026年4月の注目イベント 日本の金融政策に注目」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="みずほ銀行 リサーチ"
+              data-tags="マクロ"
+              data-search="［新興国クォータリー］みずほ新興国クォータリー（2026年3月号） 本レポートのpdfデータはこちら 概況 中国は、2026年の成長率を4.1％、2027年を3.6％と予測 – 2026～27年は、不動産不況のもと内需が停滞。外需による下支えのハードルも高まり、成長は減速が続く見通し その他アジアは、aiブームによる押し上げが徐々に弱まるほか、中国製品流入が内需の下押し要因となり、成長は減速 – 2026～27年は、aiブームのソフトランディングに伴い輸出が減速する見込み。中国製品の流入増も内需を... みずほ銀行 リサーチ マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">みずほ銀行 リサーチ</span>
+                <span class="date">2026-03-27</span>
+              </div>
+              <h2><a href="https://www.mizuhobank.co.jp/corporate/mhri/research/report/2026-0033/index.html" target="_blank" rel="noreferrer">［新興国クォータリー］みずほ新興国クォータリー（2026年3月号）</a></h2>
+              <p class="summary">本レポートのPDFデータはこちら 概況 中国は、2026年の成長率を4.1％、2027年を3.6％と予測 – 2026～27年は、不動産不況のもと内需が停滞。外需による下支えのハードルも高まり、成長は減速が続く見通し その他アジアは、AIブームによる押し上げが徐々に弱まるほか、中国製品流入が内需の下押し要因となり、成長は減速 – 2026～27年は、AIブームのソフトランディングに伴い輸出が減速する見込み。中国製品の流入増も内需を...</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="日本経済"
+              data-search="iownを軸にした日本の光電融合戦略 日本総研が日本経済の観点から整理した公開レポートです。論点は「iownを軸にした日本の光電融合戦略」です。 日本総研 日本経済"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-03-27</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113697" target="_blank" rel="noreferrer">IOWNを軸にした日本の光電融合戦略</a></h2>
+              <p class="summary">日本総研が日本経済の観点から整理した公開レポートです。論点は「IOWNを軸にした日本の光電融合戦略」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="調査レポート"
+              data-search="人事機能変革の潮流 第4回 データに基づく科学的人事遂行プラットフォーム（hrテクノロジー） 日本総研が調査レポートの観点から整理したレポートです。人事機能変革の潮流。第4回 データに基づく科学的人事遂行プラットフォーム（hrテクノロジー）。 日本総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-03-27</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113699" target="_blank" rel="noreferrer">人事機能変革の潮流 第4回 データに基づく科学的人事遂行プラットフォーム（HRテクノロジー）</a></h2>
+              <p class="summary">日本総研が調査レポートの観点から整理したレポートです。人事機能変革の潮流。第4回 データに基づく科学的人事遂行プラットフォーム（HRテクノロジー）。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="みずほ銀行 リサーチ"
+              data-tags="調査レポート"
+              data-search="［mizuho rt express］重要な意味を持つフランス地方選挙 着実に高まる極右大統領誕生の可能性 みずほ銀行 リサーチ 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">みずほ銀行 リサーチ</span>
+                <span class="date">2026-03-25</span>
+              </div>
+              <h2><a href="https://www.mizuhobank.co.jp/corporate/mhri/research/report/2026-0032/index.html" target="_blank" rel="noreferrer">［Mizuho RT EXPRESS］重要な意味を持つフランス地方選挙</a></h2>
+              <p class="summary">着実に高まる極右大統領誕生の可能性</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="米国経済 FRB エネルギー"
+              data-search="米国経済：原油高とタカ派的なfrbで高まる景気下振れリスク 米国経済をテーマにした伊藤忠総研の公開レポートです。原油高とタカ派的なfrbで高まる景気下振れリスク。 伊藤忠総研 米国経済 frb エネルギー"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-03-24</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3173/" target="_blank" rel="noreferrer">米国経済：原油高とタカ派的なFRBで高まる景気下振れリスク</a></h2>
+              <p class="summary">米国経済をテーマにした伊藤忠総研の公開レポートです。原油高とタカ派的なFRBで高まる景気下振れリスク。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                <span class="tag">FRB</span>
+                
+                <span class="tag">エネルギー</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="みずほ銀行 リサーチ"
+              data-tags="調査レポート"
+              data-search="［mhrt global watch］mhrt global watch 3月24日号 エネルギー補助金の持続性と企業収益への影響 日本：ガソリン補助開始でインフレ抑制。一方で財政への負荷は増大、政策の持続性に不透明感 / 日本：不透明感がくすぶる中、2026年春闘は高水準の賃上げ継続に向け好スタート みずほ銀行 リサーチ 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">みずほ銀行 リサーチ</span>
+                <span class="date">2026-03-24</span>
+              </div>
+              <h2><a href="https://www.mizuhobank.co.jp/corporate/mhri/research/report/2026-0030/index.html" target="_blank" rel="noreferrer">［MHRT Global Watch］MHRT Global Watch 3月24日号</a></h2>
+              <p class="summary">エネルギー補助金の持続性と企業収益への影響 日本：ガソリン補助開始でインフレ抑制。一方で財政への負荷は増大、政策の持続性に不透明感 / 日本：不透明感がくすぶる中、2026年春闘は高水準の賃上げ継続に向け好スタート</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="みずほ銀行 リサーチ"
+              data-tags="マクロ"
+              data-search="［経済・金融マンスリー］みずほ経済・金融マンスリー（2026年3月24日号） 本レポートのpdfデータはこちら 今月の内外経済・金融市場動向・評価 世界経済：製造業景況感は米欧日で節目50超え。非製造業景況感は上昇継続 金融市場の概況：中東情勢の緊迫化を受け株価が下落。金利上昇・円安が進展 米国：相互関税に違法判決。変わる米国と各国間の「損得勘定」 欧州：ドイツでは、エネルギー高が既に景気の抑制要因として作用している可能性 中国：1～2月の主要月次指標は悪くない結果。一方、不動産不況脱出の兆しはみられず 日... みずほ銀行 リサーチ マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">みずほ銀行 リサーチ</span>
+                <span class="date">2026-03-24</span>
+              </div>
+              <h2><a href="https://www.mizuhobank.co.jp/corporate/mhri/research/report/2026-0031/index.html" target="_blank" rel="noreferrer">［経済・金融マンスリー］みずほ経済・金融マンスリー（2026年3月24日号）</a></h2>
+              <p class="summary">本レポートのPDFデータはこちら 今月の内外経済・金融市場動向・評価 世界経済：製造業景況感は米欧日で節目50超え。非製造業景況感は上昇継続 金融市場の概況：中東情勢の緊迫化を受け株価が下落。金利上昇・円安が進展 米国：相互関税に違法判決。変わる米国と各国間の「損得勘定」 欧州：ドイツでは、エネルギー高が既に景気の抑制要因として作用している可能性 中国：1～2月の主要月次指標は悪くない結果。一方、不動産不況脱出の兆しはみられず 日...</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="AI"
+              data-search="itロードマップ2026年版【day2】 エージェント型aiと汎用人工知能 野村総合研究所がaiの観点から整理したレポートです。itロードマップ2026年版【day2】。エージェント型aiと汎用人工知能。 野村総合研究所 ai"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-03-24</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/2026forum407.html" target="_blank" rel="noreferrer">ITロードマップ2026年版【Day2】 エージェント型AIと汎用人工知能</a></h2>
+              <p class="summary">野村総合研究所がAIの観点から整理したレポートです。ITロードマップ2026年版【Day2】。エージェント型AIと汎用人工知能。</p>
+              <div class="tag-row">
+                
+                <span class="tag">AI</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="調査レポート"
+              data-search="これからの地域公共交通の在り方⑪（最終回） ～地域交通を「社会資本」として育てる：自治体主体の潮流と学習する仕組み～ これからの地域公共交通の在り方⑪（最終回） ～地域交通を「社会資本」として育てるをテーマにした日本総研の公開レポートです。自治体主体の潮流と学習する仕組み～。 日本総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-03-24</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113642" target="_blank" rel="noreferrer">これからの地域公共交通の在り方⑪（最終回） ～地域交通を「社会資本」として育てる：自治体主体の潮流と学習する仕組み～</a></h2>
+              <p class="summary">これからの地域公共交通の在り方⑪（最終回） ～地域交通を「社会資本」として育てるをテーマにした日本総研の公開レポートです。自治体主体の潮流と学習する仕組み～。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="中国 エネルギー"
+              data-search="中国15次5カ年計画におけるエネルギー重点分野の注目点 日本総研が中国 / エネルギーの観点から整理した公開レポートです。論点は「中国15次5カ年計画におけるエネルギー重点分野の注目点」です。 日本総研 中国 エネルギー"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-03-24</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113449" target="_blank" rel="noreferrer">中国15次5カ年計画におけるエネルギー重点分野の注目点</a></h2>
+              <p class="summary">日本総研が中国 / エネルギーの観点から整理した公開レポートです。論点は「中国15次5カ年計画におけるエネルギー重点分野の注目点」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">中国</span>
+                
+                <span class="tag">エネルギー</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="調査レポート"
+              data-search="仕組みが変われば、眼差しは変わる -発達障害がある人との協働経験を通じて- 日本総研が調査レポートの観点から整理したレポートです。仕組みが変われば、眼差しは変わる。-発達障害がある人との協働経験を通じて-。 日本総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-03-24</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113643" target="_blank" rel="noreferrer">仕組みが変われば、眼差しは変わる -発達障害がある人との協働経験を通じて-</a></h2>
+              <p class="summary">日本総研が調査レポートの観点から整理したレポートです。仕組みが変われば、眼差しは変わる。-発達障害がある人との協働経験を通じて-。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="日本経済"
+              data-search="日本経済：26年春闘は昨年に続き5％以上の賃上げ率に 日本経済をテーマにした伊藤忠総研の公開レポートです。26年春闘は昨年に続き5％以上の賃上げ率に。 伊藤忠総研 日本経済"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-03-23</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3171/" target="_blank" rel="noreferrer">日本経済：26年春闘は昨年に続き5％以上の賃上げ率に</a></h2>
+              <p class="summary">日本経済をテーマにした伊藤忠総研の公開レポートです。26年春闘は昨年に続き5％以上の賃上げ率に。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="米国経済 金利 エネルギー"
+              data-search="さらなる原油高と金利上昇を警戒 米国株は昨年9月以来の安値水準へ下落 三井住友dsアセットマネジメント 日次レポートが米国経済 / 金利の観点から整理したレポートです。さらなる原油高と金利上昇を警戒。米国株は昨年9月以来の安値水準へ下落。 三井住友dsアセットマネジメント 日次レポート 米国経済 金利 エネルギー"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2026-03-23</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2026/03/news260323jp/" target="_blank" rel="noreferrer">さらなる原油高と金利上昇を警戒 米国株は昨年9月以来の安値水準へ下落</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートが米国経済 / 金利の観点から整理したレポートです。さらなる原油高と金利上昇を警戒。米国株は昨年9月以来の安値水準へ下落。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                <span class="tag">金利</span>
+                
+                <span class="tag">エネルギー</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="AI"
+              data-search="itロードマップ2026年版【day1】フィジカルaiと宇宙空間におけるサイバーセキュリティ 野村総合研究所がaiの観点から整理した公開レポートです。論点は「itロードマップ2026年版【day1】フィジカルaiと宇宙空間におけるサイバーセキュリティ」です。 野村総合研究所 ai"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-03-23</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/2026forum406.html" target="_blank" rel="noreferrer">ITロードマップ2026年版【Day1】フィジカルAIと宇宙空間におけるサイバーセキュリティ</a></h2>
+              <p class="summary">野村総合研究所がAIの観点から整理した公開レポートです。論点は「ITロードマップ2026年版【Day1】フィジカルAIと宇宙空間におけるサイバーセキュリティ」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">AI</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="調査レポート"
+              data-search="介護保険外サービスの普及に向けた地域における情報整備の必要性（前編） 日本総研が調査レポートの観点から整理した公開レポートです。論点は「介護保険外サービスの普及に向けた地域における情報整備の必要性（前編）」です。 日本総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-03-23</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113638" target="_blank" rel="noreferrer">介護保険外サービスの普及に向けた地域における情報整備の必要性（前編）</a></h2>
+              <p class="summary">日本総研が調査レポートの観点から整理した公開レポートです。論点は「介護保険外サービスの普及に向けた地域における情報整備の必要性（前編）」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="調査レポート"
+              data-search="「戦略人事」実践論 後編 日本総研が調査レポートの観点から整理した公開レポートです。論点は「「戦略人事」実践論 後編」です。 日本総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-03-23</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113641" target="_blank" rel="noreferrer">「戦略人事」実践論 後編</a></h2>
+              <p class="summary">日本総研が調査レポートの観点から整理した公開レポートです。論点は「「戦略人事」実践論 後編」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="AI 労働"
+              data-search="【ai時代の人的資本経営】【第１回】 ai時代の人事に起きている構造変化 日本総研がai / 労働の観点から整理したレポートです。【ai時代の人的資本経営】【第１回】。ai時代の人事に起きている構造変化。 日本総研 ai 労働"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-03-23</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113648" target="_blank" rel="noreferrer">【AI時代の人的資本経営】【第１回】 AI時代の人事に起きている構造変化</a></h2>
+              <p class="summary">日本総研がAI / 労働の観点から整理したレポートです。【AI時代の人的資本経営】【第１回】。AI時代の人事に起きている構造変化。</p>
+              <div class="tag-row">
+                
+                <span class="tag">AI</span>
+                
+                <span class="tag">労働</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="AI 労働"
+              data-search="【ai時代の人的資本経営】【第２回】 採用・育成・評価におけるai活用と今後の人事が担う役割 日本総研がai / 労働の観点から整理したレポートです。【ai時代の人的資本経営】【第２回】。採用・育成・評価におけるai活用と今後の人事が担う役割。 日本総研 ai 労働"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-03-23</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113650" target="_blank" rel="noreferrer">【AI時代の人的資本経営】【第２回】 採用・育成・評価におけるAI活用と今後の人事が担う役割</a></h2>
+              <p class="summary">日本総研がAI / 労働の観点から整理したレポートです。【AI時代の人的資本経営】【第２回】。採用・育成・評価におけるAI活用と今後の人事が担う役割。</p>
+              <div class="tag-row">
+                
+                <span class="tag">AI</span>
+                
+                <span class="tag">労働</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="MURC 分析レポート"
+              data-tags="中国"
+              data-search="全人代から見る2026年の中国経済 murc 分析レポートが中国の観点から整理した公開レポートです。論点は「全人代から見る2026年の中国経済」です。 murc 分析レポート 中国"
+            >
+              <div class="report-meta">
+                <span class="source">MURC 分析レポート</span>
+                <span class="date">2026-03-19</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/economyresearch/analysis/research/report_260319/" target="_blank" rel="noreferrer">全人代から見る2026年の中国経済</a></h2>
+              <p class="summary">MURC 分析レポートが中国の観点から整理した公開レポートです。論点は「全人代から見る2026年の中国経済」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">中国</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="伊藤忠総研"
+              data-tags="日本経済 エネルギー"
+              data-search="日本経済：原油価格高騰は実質賃金のプラス定着を妨げるのか 日本経済をテーマにした伊藤忠総研の公開レポートです。原油価格高騰は実質賃金のプラス定着を妨げるのか。 伊藤忠総研 日本経済 エネルギー"
+            >
+              <div class="report-meta">
+                <span class="source">伊藤忠総研</span>
+                <span class="date">2026-03-16</span>
+              </div>
+              <h2><a href="https://www.itochu-research.com/ja/report/2026/3165/" target="_blank" rel="noreferrer">日本経済：原油価格高騰は実質賃金のプラス定着を妨げるのか</a></h2>
+              <p class="summary">日本経済をテーマにした伊藤忠総研の公開レポートです。原油価格高騰は実質賃金のプラス定着を妨げるのか。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                <span class="tag">エネルギー</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="調査レポート"
+              data-search="製造業におけるサブスクリプションビジネスへのアプローチ 三菱ufjリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「製造業におけるサブスクリプションビジネスへのアプローチ」です。 三菱ufjリサーチ&amp;コンサルティング 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2026-03-16</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/cr_260316/" target="_blank" rel="noreferrer">製造業におけるサブスクリプションビジネスへのアプローチ</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「製造業におけるサブスクリプションビジネスへのアプローチ」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="日本経済 米国経済 AI"
+              data-search="日・米・中・独4か国調査にみるai利用の受容性と日本におけるai浸透の未来像 野村総合研究所が日本経済 / 米国経済の観点から整理した公開レポートです。論点は「日・米・中・独4か国調査にみるai利用の受容性と日本におけるai浸透の未来像」です。 野村総合研究所 日本経済 米国経済 ai"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-03-16</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/2026forum405.html" target="_blank" rel="noreferrer">日・米・中・独4か国調査にみるAI利用の受容性と日本におけるAI浸透の未来像</a></h2>
+              <p class="summary">野村総合研究所が日本経済 / 米国経済の観点から整理した公開レポートです。論点は「日・米・中・独4か国調査にみるAI利用の受容性と日本におけるAI浸透の未来像」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                <span class="tag">米国経済</span>
+                
+                <span class="tag">AI</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="みずほ銀行 産業調査"
+              data-tags="調査レポート"
+              data-search="mizuho research &amp; analysis みずほ銀行 産業調査が調査レポートの観点から整理した公開レポートです。論点は「mizuho research &amp; analysis」です。 みずほ銀行 産業調査 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">みずほ銀行 産業調査</span>
+                <span class="date">2026-03-15</span>
+              </div>
+              <h2><a href="https://www.mizuhobank.co.jp/corporate/industry/mra/index.html" target="_blank" rel="noreferrer">MIZUHO Research &amp; Analysis</a></h2>
+              <p class="summary">みずほ銀行 産業調査が調査レポートの観点から整理した公開レポートです。論点は「MIZUHO Research &amp; Analysis」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="MURC 分析レポート"
+              data-tags="調査レポート"
+              data-search="波乱が予想されるハンガリー総選挙 murc 分析レポートが調査レポートの観点から整理した公開レポートです。論点は「波乱が予想されるハンガリー総選挙」です。 murc 分析レポート 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">MURC 分析レポート</span>
+                <span class="date">2026-03-13</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/economyresearch/analysis/research/report_260313/" target="_blank" rel="noreferrer">波乱が予想されるハンガリー総選挙</a></h2>
+              <p class="summary">MURC 分析レポートが調査レポートの観点から整理した公開レポートです。論点は「波乱が予想されるハンガリー総選挙」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="調査レポート"
+              data-search="「ビジネスと人権」に関する行動計画改定版のポイントと企業実務への示唆 三菱ufjリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「「ビジネスと人権」に関する行動計画改定版のポイントと企業実務への示唆」です。 三菱ufjリサーチ&amp;コンサルティング 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2026-03-13</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/cr_260313/" target="_blank" rel="noreferrer">「ビジネスと人権」に関する行動計画改定版のポイントと企業実務への示唆</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「「ビジネスと人権」に関する行動計画改定版のポイントと企業実務への示唆」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="調査レポート"
+              data-search="［featured charts］「規模の追求」から「課題解決」で変革する:自立経済都市（圏） 野村総合研究所が調査レポートの観点から整理したレポートです。［featured。charts］「規模の追求」から「課題解決」で変革する:自立経済都市（圏）。 野村総合研究所 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-03-13</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/20260313_1.html" target="_blank" rel="noreferrer">［Featured Charts］「規模の追求」から「課題解決」で変革する:自立経済都市（圏）</a></h2>
+              <p class="summary">野村総合研究所が調査レポートの観点から整理したレポートです。［Featured。Charts］「規模の追求」から「課題解決」で変革する:自立経済都市（圏）。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本総研"
+              data-tags="調査レポート"
+              data-search="dxに求められる“変革”のガバナンス 日本総研が調査レポートの観点から整理した公開レポートです。論点は「dxに求められる“変革”のガバナンス」です。 日本総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">日本総研</span>
+                <span class="date">2026-03-13</span>
+              </div>
+              <h2><a href="https://www.jri.co.jp/page.jsp?id=113557" target="_blank" rel="noreferrer">DXに求められる“変革”のガバナンス</a></h2>
+              <p class="summary">日本総研が調査レポートの観点から整理した公開レポートです。論点は「DXに求められる“変革”のガバナンス」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="マクロ"
+              data-search="fundmark report 最新号（2026年3月号） 野村総合研究所がマクロの観点から整理したレポートです。fundmark。report 最新号（2026年3月号）。 野村総合研究所 マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-03-12</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/20260312.html" target="_blank" rel="noreferrer">Fundmark Report 最新号（2026年3月号）</a></h2>
+              <p class="summary">野村総合研究所がマクロの観点から整理したレポートです。Fundmark。Report 最新号（2026年3月号）。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="日本経済 消費"
+              data-search="インバウンドを起点とした日本食市場拡大の方向性 野村総合研究所が日本経済 / 消費の観点から整理した公開レポートです。論点は「インバウンドを起点とした日本食市場拡大の方向性」です。 野村総合研究所 日本経済 消費"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-03-11</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/2026forum404.html" target="_blank" rel="noreferrer">インバウンドを起点とした日本食市場拡大の方向性</a></h2>
+              <p class="summary">野村総合研究所が日本経済 / 消費の観点から整理した公開レポートです。論点は「インバウンドを起点とした日本食市場拡大の方向性」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                <span class="tag">消費</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="マクロ"
+              data-search="2025年の崖を迎えた中小企業のdx推進状況と課題 三菱ufjリサーチ&amp;コンサルティングがマクロの観点から整理した公開レポートです。論点は「2025年の崖を迎えた中小企業のdx推進状況と課題」です。 三菱ufjリサーチ&amp;コンサルティング マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2026-03-06</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/cr_260306/" target="_blank" rel="noreferrer">2025年の崖を迎えた中小企業のDX推進状況と課題</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングがマクロの観点から整理した公開レポートです。論点は「2025年の崖を迎えた中小企業のDX推進状況と課題」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="日本経済"
+              data-search="ホルムズ海峡の実質封鎖の長期化を懸念 中東情勢の緊迫化を受けた日本株式市場 三井住友dsアセットマネジメント 日次レポートが日本経済の観点から整理したレポートです。ホルムズ海峡の実質封鎖の長期化を懸念。中東情勢の緊迫化を受けた日本株式市場。 三井住友dsアセットマネジメント 日次レポート 日本経済"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2026-03-04</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2026/03/news260304jp/" target="_blank" rel="noreferrer">ホルムズ海峡の実質封鎖の長期化を懸念 中東情勢の緊迫化を受けた日本株式市場</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートが日本経済の観点から整理したレポートです。ホルムズ海峡の実質封鎖の長期化を懸念。中東情勢の緊迫化を受けた日本株式市場。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="みずほ銀行 産業調査"
+              data-tags="調査レポート"
+              data-search="産業情報 みずほ銀行 産業調査が調査レポートの観点から整理した公開レポートです。論点は「産業情報」です。 みずほ銀行 産業調査 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">みずほ銀行 産業調査</span>
+                <span class="date">2026-03-01</span>
+              </div>
+              <h2><a href="https://www.mizuhobank.co.jp/corporate/industry/index.html" target="_blank" rel="noreferrer">産業情報</a></h2>
+              <p class="summary">みずほ銀行 産業調査が調査レポートの観点から整理した公開レポートです。論点は「産業情報」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="米国経済"
+              data-search="2026年3月の注目イベント 日米の金融政策に注目 三井住友dsアセットマネジメント 日次レポートが米国経済の観点から整理した公開レポートです。論点は「2026年3月の注目イベント 日米の金融政策に注目」です。 三井住友dsアセットマネジメント 日次レポート 米国経済"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2026-02-26</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2026/02/news260226gl/" target="_blank" rel="noreferrer">2026年3月の注目イベント 日米の金融政策に注目</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートが米国経済の観点から整理した公開レポートです。論点は「2026年3月の注目イベント 日米の金融政策に注目」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="調査レポート"
+              data-search="インド産業アウトルック2026 野村総合研究所が調査レポートの観点から整理した公開レポートです。論点は「インド産業アウトルック2026」です。 野村総合研究所 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-02-25</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/2026forum403.html" target="_blank" rel="noreferrer">インド産業アウトルック2026</a></h2>
+              <p class="summary">野村総合研究所が調査レポートの観点から整理した公開レポートです。論点は「インド産業アウトルック2026」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="マクロ"
+              data-search="企業人事部門のトピックスに関するアンケート調査（2025年度） 三菱ufjリサーチ&amp;コンサルティングがマクロの観点から整理した公開レポートです。論点は「企業人事部門のトピックスに関するアンケート調査（2025年度）」です。 三菱ufjリサーチ&amp;コンサルティング マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2026-02-20</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/cr_260220/" target="_blank" rel="noreferrer">企業人事部門のトピックスに関するアンケート調査（2025年度）</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングがマクロの観点から整理した公開レポートです。論点は「企業人事部門のトピックスに関するアンケート調査（2025年度）」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="調査レポート"
+              data-search="令和6年度　スポーツ行政に関する実態調査報告 三菱ufjリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「令和6年度 スポーツ行政に関する実態調査報告」です。 三菱ufjリサーチ&amp;コンサルティング 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2026-02-19</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/seiken_260219/" target="_blank" rel="noreferrer">令和6年度　スポーツ行政に関する実態調査報告</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「令和6年度 スポーツ行政に関する実態調査報告」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="消費"
+              data-search="インバウンド6,000万人時代に向けた交通ネットワーク再編戦略 野村総合研究所が消費の観点から整理した公開レポートです。論点は「インバウンド6,000万人時代に向けた交通ネットワーク再編戦略」です。 野村総合研究所 消費"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-02-17</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/2026forum402.html" target="_blank" rel="noreferrer">インバウンド6,000万人時代に向けた交通ネットワーク再編戦略</a></h2>
+              <p class="summary">野村総合研究所が消費の観点から整理した公開レポートです。論点は「インバウンド6,000万人時代に向けた交通ネットワーク再編戦略」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">消費</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="日本経済 AI"
+              data-search="［featured charts］aiと日本 野村総合研究所が日本経済 / aiの観点から整理した公開レポートです。論点は「［featured charts］aiと日本」です。 野村総合研究所 日本経済 ai"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-02-17</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/20260217_1.html" target="_blank" rel="noreferrer">［Featured Charts］AIと日本</a></h2>
+              <p class="summary">野村総合研究所が日本経済 / AIの観点から整理した公開レポートです。論点は「［Featured Charts］AIと日本」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                <span class="tag">AI</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="マクロ"
+              data-search="自動車業界の2025年度4-12月期決算 政策変更と一過性費用が完成車メーカーを直撃 三井住友dsアセットマネジメント 日次レポートがマクロの観点から整理したレポートです。自動車業界の2025年度4-12月期決算。政策変更と一過性費用が完成車メーカーを直撃。 三井住友dsアセットマネジメント 日次レポート マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2026-02-16</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2026/02/news260216jp/" target="_blank" rel="noreferrer">自動車業界の2025年度4-12月期決算 政策変更と一過性費用が完成車メーカーを直撃</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートがマクロの観点から整理したレポートです。自動車業界の2025年度4-12月期決算。政策変更と一過性費用が完成車メーカーを直撃。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="調査レポート"
+              data-search="デザインの保護と意匠制度 三菱ufjリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「デザインの保護と意匠制度」です。 三菱ufjリサーチ&amp;コンサルティング 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2026-02-16</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/seiken_260216/" target="_blank" rel="noreferrer">デザインの保護と意匠制度</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「デザインの保護と意匠制度」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="野村総合研究所"
+              data-tags="調査レポート"
+              data-search="テクノロジーが創出する新しい高齢者就労の在り方 野村総合研究所が調査レポートの観点から整理した公開レポートです。論点は「テクノロジーが創出する新しい高齢者就労の在り方」です。 野村総合研究所 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">野村総合研究所</span>
+                <span class="date">2026-02-10</span>
+              </div>
+              <h2><a href="https://www.nri.com/jp/knowledge/report/2026forum401.html" target="_blank" rel="noreferrer">テクノロジーが創出する新しい高齢者就労の在り方</a></h2>
+              <p class="summary">野村総合研究所が調査レポートの観点から整理した公開レポートです。論点は「テクノロジーが創出する新しい高齢者就労の在り方」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="米国経済"
+              data-search="日米における農業セーフティネット政策の比較分析 三菱ufjリサーチ&amp;コンサルティングが米国経済の観点から整理した公開レポートです。論点は「日米における農業セーフティネット政策の比較分析」です。 三菱ufjリサーチ&amp;コンサルティング 米国経済"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2026-01-30</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/seiken_260130/" target="_blank" rel="noreferrer">日米における農業セーフティネット政策の比較分析</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングが米国経済の観点から整理した公開レポートです。論点は「日米における農業セーフティネット政策の比較分析」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="マクロ"
+              data-search="2026年2月の注目イベント 衆議院選挙に注目 三井住友dsアセットマネジメント 日次レポートがマクロの観点から整理した公開レポートです。論点は「2026年2月の注目イベント 衆議院選挙に注目」です。 三井住友dsアセットマネジメント 日次レポート マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2026-01-29</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2026/01/news260129gl/" target="_blank" rel="noreferrer">2026年2月の注目イベント 衆議院選挙に注目</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートがマクロの観点から整理した公開レポートです。論点は「2026年2月の注目イベント 衆議院選挙に注目」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="調査レポート"
+              data-search="【概要版】こどもの居場所の評価手法の開発 三菱ufjリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「【概要版】こどもの居場所の評価手法の開発」です。 三菱ufjリサーチ&amp;コンサルティング 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2026-01-29</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/seiken_260129_02/" target="_blank" rel="noreferrer">【概要版】こどもの居場所の評価手法の開発</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングが調査レポートの観点から整理した公開レポートです。論点は「【概要版】こどもの居場所の評価手法の開発」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="マクロ"
+              data-search="2024年度 東海3県主要集客施設・集客実態調査 三菱ufjリサーチ&amp;コンサルティングがマクロの観点から整理した公開レポートです。論点は「2024年度 東海3県主要集客施設・集客実態調査」です。 三菱ufjリサーチ&amp;コンサルティング マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2026-01-23</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/seiken_260123/" target="_blank" rel="noreferrer">2024年度 東海3県主要集客施設・集客実態調査</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングがマクロの観点から整理した公開レポートです。論点は「2024年度 東海3県主要集客施設・集客実態調査」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="米国経済"
+              data-search="2026年1月の注目イベント 日米の金融政策に注目 三井住友dsアセットマネジメント 日次レポートが米国経済の観点から整理した公開レポートです。論点は「2026年1月の注目イベント 日米の金融政策に注目」です。 三井住友dsアセットマネジメント 日次レポート 米国経済"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2025-12-25</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2025/12/news251225gl/" target="_blank" rel="noreferrer">2026年1月の注目イベント 日米の金融政策に注目</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートが米国経済の観点から整理した公開レポートです。論点は「2026年1月の注目イベント 日米の金融政策に注目」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三菱UFJリサーチ&amp;コンサルティング"
+              data-tags="日本経済"
+              data-search="新興国販売金融と日本企業の勝機 三菱ufjリサーチ&amp;コンサルティングが日本経済の観点から整理した公開レポートです。論点は「新興国販売金融と日本企業の勝機」です。 三菱ufjリサーチ&amp;コンサルティング 日本経済"
+            >
+              <div class="report-meta">
+                <span class="source">三菱UFJリサーチ&amp;コンサルティング</span>
+                <span class="date">2025-12-22</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/report/cr_251222/" target="_blank" rel="noreferrer">新興国販売金融と日本企業の勝機</a></h2>
+              <p class="summary">三菱UFJリサーチ&amp;コンサルティングが日本経済の観点から整理した公開レポートです。論点は「新興国販売金融と日本企業の勝機」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="マクロ"
+              data-search="2025年12月の注目イベント 主要国の金融政策に注目 三井住友dsアセットマネジメント 日次レポートがマクロの観点から整理した公開レポートです。論点は「2025年12月の注目イベント 主要国の金融政策に注目」です。 三井住友dsアセットマネジメント 日次レポート マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2025-11-27</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2025/11/news251127gl/" target="_blank" rel="noreferrer">2025年12月の注目イベント 主要国の金融政策に注目</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートがマクロの観点から整理した公開レポートです。論点は「2025年12月の注目イベント 主要国の金融政策に注目」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="米国経済"
+              data-search="自動車業界の2025年度4-9月期決算 米政権の政策変更が完成車メーカーを直撃 三井住友dsアセットマネジメント 日次レポートが米国経済の観点から整理したレポートです。自動車業界の2025年度4-9月期決算。米政権の政策変更が完成車メーカーを直撃。 三井住友dsアセットマネジメント 日次レポート 米国経済"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2025-11-11</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2025/11/news251111jp/" target="_blank" rel="noreferrer">自動車業界の2025年度4-9月期決算 米政権の政策変更が完成車メーカーを直撃</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートが米国経済の観点から整理したレポートです。自動車業界の2025年度4-9月期決算。米政権の政策変更が完成車メーカーを直撃。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="日本経済"
+              data-search="2025年11月の注目イベント 日本の政治・経済の動向に注目 三井住友dsアセットマネジメント 日次レポートが日本経済の観点から整理したレポートです。2025年11月の注目イベント。日本の政治・経済の動向に注目。 三井住友dsアセットマネジメント 日次レポート 日本経済"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2025-10-28</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2025/10/news251028gl/" target="_blank" rel="noreferrer">2025年11月の注目イベント 日本の政治・経済の動向に注目</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートが日本経済の観点から整理したレポートです。2025年11月の注目イベント。日本の政治・経済の動向に注目。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="マクロ"
+              data-search="2025年10月の注目イベント 自民党総裁選に注目 三井住友dsアセットマネジメント 日次レポートがマクロの観点から整理した公開レポートです。論点は「2025年10月の注目イベント 自民党総裁選に注目」です。 三井住友dsアセットマネジメント 日次レポート マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2025-09-25</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2025/09/news2509251gl/" target="_blank" rel="noreferrer">2025年10月の注目イベント 自民党総裁選に注目</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートがマクロの観点から整理した公開レポートです。論点は「2025年10月の注目イベント 自民党総裁選に注目」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="調査レポート"
+              data-search="シリーズ 民間企業の農業参入を考える 大和総研が調査レポートの観点から整理した公開レポートです。論点は「シリーズ 民間企業の農業参入を考える」です。 大和総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2025-09-05</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/biz_reform/20250905_025290.html" target="_blank" rel="noreferrer">シリーズ 民間企業の農業参入を考える</a></h2>
+              <p class="summary">大和総研が調査レポートの観点から整理した公開レポートです。論点は「シリーズ 民間企業の農業参入を考える」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="三井住友DSアセットマネジメント 日次レポート"
+              data-tags="FRB"
+              data-search="2025年9月の注目イベント fomcの政策決定に注目 三井住友dsアセットマネジメント 日次レポートがfrbの観点から整理した公開レポートです。論点は「2025年9月の注目イベント fomcの政策決定に注目」です。 三井住友dsアセットマネジメント 日次レポート frb"
+            >
+              <div class="report-meta">
+                <span class="source">三井住友DSアセットマネジメント 日次レポート</span>
+                <span class="date">2025-08-27</span>
+              </div>
+              <h2><a href="https://www.smd-am.co.jp/market/daily/marketreport/2025/08/news250827gl/" target="_blank" rel="noreferrer">2025年9月の注目イベント FOMCの政策決定に注目</a></h2>
+              <p class="summary">三井住友DSアセットマネジメント 日次レポートがFRBの観点から整理した公開レポートです。論点は「2025年9月の注目イベント FOMCの政策決定に注目」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">FRB</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="調査レポート"
+              data-search="地域で影響を増す外国人の社会増減 大和総研が調査レポートの観点から整理した公開レポートです。論点は「地域で影響を増す外国人の社会増減」です。 大和総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2025-07-24</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/research/20250724_025213.html" target="_blank" rel="noreferrer">地域で影響を増す外国人の社会増減</a></h2>
+              <p class="summary">大和総研が調査レポートの観点から整理した公開レポートです。論点は「地域で影響を増す外国人の社会増減」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本政策投資銀行"
+              data-tags="日本経済"
+              data-search="福島県の日本酒再興戦略～酒処の更なるブランド力と知名度向上に向けて～ 日本政策投資銀行が日本経済の観点から整理した公開レポートです。論点は「福島県の日本酒再興戦略～酒処の更なるブランド力と知名度向上に向けて～」です。 日本政策投資銀行 日本経済"
+            >
+              <div class="report-meta">
+                <span class="source">日本政策投資銀行</span>
+                <span class="date">2025-06-01</span>
+              </div>
+              <h2><a href="https://www.dbj.jp/topics/investigate/2021/html/20210610_203308.html" target="_blank" rel="noreferrer">福島県の日本酒再興戦略～酒処の更なるブランド力と知名度向上に向けて～</a></h2>
+              <p class="summary">日本政策投資銀行が日本経済の観点から整理した公開レポートです。論点は「福島県の日本酒再興戦略～酒処の更なるブランド力と知名度向上に向けて～」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="日本政策投資銀行"
+              data-tags="不動産"
+              data-search="地域別設備投資計画調査 日本政策投資銀行が不動産の観点から整理した公開レポートです。論点は「地域別設備投資計画調査」です。 日本政策投資銀行 不動産"
+            >
+              <div class="report-meta">
+                <span class="source">日本政策投資銀行</span>
+                <span class="date">2025-06-01</span>
+              </div>
+              <h2><a href="https://www.dbj.jp/investigate/equip/regional/detail.html" target="_blank" rel="noreferrer">地域別設備投資計画調査</a></h2>
+              <p class="summary">日本政策投資銀行が不動産の観点から整理した公開レポートです。論点は「地域別設備投資計画調査」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">不動産</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="調査レポート"
+              data-search="シリーズ 民間企業の農業参入を考える 大和総研が調査レポートの観点から整理した公開レポートです。論点は「シリーズ 民間企業の農業参入を考える」です。 大和総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2025-03-11</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/biz_reform/20250311_024958.html" target="_blank" rel="noreferrer">シリーズ 民間企業の農業参入を考える</a></h2>
+              <p class="summary">大和総研が調査レポートの観点から整理した公開レポートです。論点は「シリーズ 民間企業の農業参入を考える」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="調査レポート"
+              data-search="j-flec認定アドバイザーを活用した職域向けファイナンシャル・ウェルビーイング推進のすすめ 大和総研が調査レポートの観点から整理した公開レポートです。論点は「j-flec認定アドバイザーを活用した職域向けファイナンシャル・ウェルビーイング推進のすすめ」です。 大和総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2025-01-29</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/human-capital-management/20250129_024890.html" target="_blank" rel="noreferrer">J-FLEC認定アドバイザーを活用した職域向けファイナンシャル・ウェルビーイング推進のすすめ</a></h2>
+              <p class="summary">大和総研が調査レポートの観点から整理した公開レポートです。論点は「J-FLEC認定アドバイザーを活用した職域向けファイナンシャル・ウェルビーイング推進のすすめ」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="調査レポート"
+              data-search="シリーズ 民間企業の農業参入を考える 大和総研が調査レポートの観点から整理した公開レポートです。論点は「シリーズ 民間企業の農業参入を考える」です。 大和総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2024-11-18</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/biz_reform/20241118_024736.html" target="_blank" rel="noreferrer">シリーズ 民間企業の農業参入を考える</a></h2>
+              <p class="summary">大和総研が調査レポートの観点から整理した公開レポートです。論点は「シリーズ 民間企業の農業参入を考える」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="AI"
+              data-search="生成ai利活用に関する技術・サービスの動向 大和総研がaiの観点から整理した公開レポートです。論点は「生成ai利活用に関する技術・サービスの動向」です。 大和総研 ai"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2024-07-01</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/research/20240701_024473.html" target="_blank" rel="noreferrer">生成AI利活用に関する技術・サービスの動向</a></h2>
+              <p class="summary">大和総研がAIの観点から整理した公開レポートです。論点は「生成AI利活用に関する技術・サービスの動向」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">AI</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="中国"
+              data-search="中国はグリーン水素でも主導権を握るのか（前編） 大和総研が中国の観点から整理した公開レポートです。論点は「中国はグリーン水素でも主導権を握るのか（前編）」です。 大和総研 中国"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2024-05-17</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/sustainability/20240517_024398.html" target="_blank" rel="noreferrer">中国はグリーン水素でも主導権を握るのか（前編）</a></h2>
+              <p class="summary">大和総研が中国の観点から整理した公開レポートです。論点は「中国はグリーン水素でも主導権を握るのか（前編）」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">中国</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="テクノロジー"
+              data-search="データ分析を経営にどう活かすか？ 大和総研がテクノロジーの観点から整理した公開レポートです。論点は「データ分析を経営にどう活かすか？」です。 大和総研 テクノロジー"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2024-05-10</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/pbo_analysis/20240510_024384.html" target="_blank" rel="noreferrer">データ分析を経営にどう活かすか？</a></h2>
+              <p class="summary">大和総研がテクノロジーの観点から整理した公開レポートです。論点は「データ分析を経営にどう活かすか？」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">テクノロジー</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="調査レポート"
+              data-search="コロナ禍を踏まえた人口動向 大和総研が調査レポートの観点から整理した公開レポートです。論点は「コロナ禍を踏まえた人口動向」です。 大和総研 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2024-03-28</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/research/20240328_024322.html" target="_blank" rel="noreferrer">コロナ禍を踏まえた人口動向</a></h2>
+              <p class="summary">大和総研が調査レポートの観点から整理した公開レポートです。論点は「コロナ禍を踏まえた人口動向」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="大和総研"
+              data-tags="AI"
+              data-search="生成ai（llm）のビジネス適用の潮流 大和総研がaiの観点から整理した公開レポートです。論点は「生成ai（llm）のビジネス適用の潮流」です。 大和総研 ai"
+            >
+              <div class="report-meta">
+                <span class="source">大和総研</span>
+                <span class="date">2024-03-18</span>
+              </div>
+              <h2><a href="https://www.dir.co.jp/report/consulting/research/20240318_024297.html" target="_blank" rel="noreferrer">生成AI（LLM）のビジネス適用の潮流</a></h2>
+              <p class="summary">大和総研がAIの観点から整理した公開レポートです。論点は「生成AI（LLM）のビジネス適用の潮流」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">AI</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="MURC 分析レポート"
+              data-tags="マクロ"
+              data-search="けいざい早わかり 2020年度第1号：東京オリンピック・パラリンピック延期および新型コロナウイルスの感染拡大が国内景気に及ぼす影響について けいざい早わかり 2020年度第1号をテーマにしたmurc 分析レポートの公開レポートです。東京オリンピック・パラリンピック延期および新型コロナウイルスの感染拡大が国内景気に及ぼす影響について。 murc 分析レポート マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">MURC 分析レポート</span>
+                <span class="date">2020-04-03</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/economyresearch/analysis/easy_guide/haya_200403/" target="_blank" rel="noreferrer">けいざい早わかり 2020年度第1号：東京オリンピック・パラリンピック延期および新型コロナウイルスの感染拡大が国内景気に及ぼす影響について</a></h2>
+              <p class="summary">けいざい早わかり 2020年度第1号をテーマにしたMURC 分析レポートの公開レポートです。東京オリンピック・パラリンピック延期および新型コロナウイルスの感染拡大が国内景気に及ぼす影響について。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="MURC 分析レポート"
+              data-tags="米国経済"
+              data-search="けいざい早わかり 2019年度第3号：合意に至った日米貿易協定・日米デジタル貿易協定 けいざい早わかり 2019年度第3号をテーマにしたmurc 分析レポートの公開レポートです。合意に至った日米貿易協定・日米デジタル貿易協定。 murc 分析レポート 米国経済"
+            >
+              <div class="report-meta">
+                <span class="source">MURC 分析レポート</span>
+                <span class="date">2019-09-30</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/economyresearch/analysis/easy_guide/haya_190930/" target="_blank" rel="noreferrer">けいざい早わかり 2019年度第3号：合意に至った日米貿易協定・日米デジタル貿易協定</a></h2>
+              <p class="summary">けいざい早わかり 2019年度第3号をテーマにしたMURC 分析レポートの公開レポートです。合意に至った日米貿易協定・日米デジタル貿易協定。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="MURC 分析レポート"
+              data-tags="マクロ"
+              data-search="けいざい早わかり 2019年度第2号：骨太の方針2019の概要 けいざい早わかり 2019年度第2号をテーマにしたmurc 分析レポートの公開レポートです。骨太の方針2019の概要。 murc 分析レポート マクロ"
+            >
+              <div class="report-meta">
+                <span class="source">MURC 分析レポート</span>
+                <span class="date">2019-06-24</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/economyresearch/analysis/easy_guide/haya_190624/" target="_blank" rel="noreferrer">けいざい早わかり 2019年度第2号：骨太の方針2019の概要</a></h2>
+              <p class="summary">けいざい早わかり 2019年度第2号をテーマにしたMURC 分析レポートの公開レポートです。骨太の方針2019の概要。</p>
+              <div class="tag-row">
+                
+                <span class="tag">マクロ</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="MURC 分析レポート"
+              data-tags="米国経済"
+              data-search="けいざい早わかり 2019年度第1号：交渉が開始された日米物品貿易協定 けいざい早わかり 2019年度第1号をテーマにしたmurc 分析レポートの公開レポートです。交渉が開始された日米物品貿易協定。 murc 分析レポート 米国経済"
+            >
+              <div class="report-meta">
+                <span class="source">MURC 分析レポート</span>
+                <span class="date">2019-04-19</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/economyresearch/analysis/easy_guide/haya_190419/" target="_blank" rel="noreferrer">けいざい早わかり 2019年度第1号：交渉が開始された日米物品貿易協定</a></h2>
+              <p class="summary">けいざい早わかり 2019年度第1号をテーマにしたMURC 分析レポートの公開レポートです。交渉が開始された日米物品貿易協定。</p>
+              <div class="tag-row">
+                
+                <span class="tag">米国経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="MURC 分析レポート"
+              data-tags="日本経済"
+              data-search="けいざい早わかり 2018年度第4号：2019年の日本経済 けいざい早わかり 2018年度第4号をテーマにしたmurc 分析レポートの公開レポートです。2019年の日本経済。 murc 分析レポート 日本経済"
+            >
+              <div class="report-meta">
+                <span class="source">MURC 分析レポート</span>
+                <span class="date">2018-12-26</span>
+              </div>
+              <h2><a href="https://www.murc.jp/library/economyresearch/analysis/easy_guide/haya_181226/" target="_blank" rel="noreferrer">けいざい早わかり 2018年度第4号：2019年の日本経済</a></h2>
+              <p class="summary">けいざい早わかり 2018年度第4号をテーマにしたMURC 分析レポートの公開レポートです。2019年の日本経済。</p>
+              <div class="tag-row">
+                
+                <span class="tag">日本経済</span>
+                
+                
+              </div>
+            </article>
+            
+            <article
+              class="report-card"
+              data-source="みずほ銀行 産業調査"
+              data-tags="調査レポート"
+              data-search="みずほ産業調査 vol.49 みずほ銀行 産業調査が調査レポートの観点から整理した公開レポートです。論点は「みずほ産業調査 vol.49」です。 みずほ銀行 産業調査 調査レポート"
+            >
+              <div class="report-meta">
+                <span class="source">みずほ銀行 産業調査</span>
+                <span class="date">2015-01-01</span>
+              </div>
+              <h2><a href="https://www.mizuhobank.co.jp/corporate/industry/sangyou/m1049.html" target="_blank" rel="noreferrer">みずほ産業調査 Vol.49</a></h2>
+              <p class="summary">みずほ銀行 産業調査が調査レポートの観点から整理した公開レポートです。論点は「みずほ産業調査 Vol.49」です。</p>
+              <div class="tag-row">
+                
+                <span class="tag">調査レポート</span>
+                
+                
+              </div>
+            </article>
+            
+          </section>
+
+          
+          <section class="panel" style="margin-top: 18px;">
+            <h3>別枠記事</h3>
+            <div class="feed-list">
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2026-03-26</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20260326.html" target="_blank" rel="noreferrer">メドテックコラム Vol.6 生成AIはヘルスケアビジネスをどう変えるか？～国内の活用事例に見る「業務変革」の現在地～</a></h2>
+                <p class="summary">NRI コラムがAIの観点から整理したレポートです。メドテックコラム。Vol.6 生成AIはヘルスケアビジネスをどう変えるか？～国内の活用事例に見る「業務変革」の現在地～。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">AI</span>
+                  
+                </div>
+              </article>
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2026-03-16</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20260316.html" target="_blank" rel="noreferrer">CES 2026現地報告：生成AIから「フィジカルAI」へ。加速する社会実装と日本企業の生存戦略</a></h2>
+                <p class="summary">CES 2026現地報告をテーマにしたNRI コラムの公開レポートです。生成AIから「フィジカルAI」へ。加速する社会実装と日本企業の生存戦略。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">日本経済</span>
+                  
+                  <span class="tag">AI</span>
+                  
+                </div>
+              </article>
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2026-03-05</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20260305.html" target="_blank" rel="noreferrer">メドテックコラム Vol.5 米国バイオセキュリティ政策の影響</a></h2>
+                <p class="summary">NRI コラムが米国経済の観点から整理したレポートです。メドテックコラム。Vol.5 米国バイオセキュリティ政策の影響。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">米国経済</span>
+                  
+                </div>
+              </article>
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2026-02-20</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20260220.html" target="_blank" rel="noreferrer">クロスボーダーPMIにおける罠と処方箋</a></h2>
+                <p class="summary">NRI コラムが調査レポートの観点から整理した公開レポートです。論点は「クロスボーダーPMIにおける罠と処方箋」です。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">調査レポート</span>
+                  
+                </div>
+              </article>
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2026-02-13</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20260213.html" target="_blank" rel="noreferrer">製造業におけるAI・ロボット技術活用の潮流 ［前編］製造現場に求められるDXの次の一手</a></h2>
+                <p class="summary">NRI コラムがAIの観点から整理したレポートです。製造業におけるAI・ロボット技術活用の潮流。［前編］製造現場に求められるDXの次の一手。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">AI</span>
+                  
+                </div>
+              </article>
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2026-02-09</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20260209.html" target="_blank" rel="noreferrer">GXコラム GX-ETS第2フェーズに向けた制度設計の全体像と検討すべき対応</a></h2>
+                <p class="summary">NRI コラムが調査レポートの観点から整理したレポートです。GXコラム。GX-ETS第2フェーズに向けた制度設計の全体像と検討すべき対応。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">調査レポート</span>
+                  
+                </div>
+              </article>
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2026-02-03</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20260203.html" target="_blank" rel="noreferrer">GXコラム 政府によるGX投資支援の全体像と企業が押さえるべきポイント</a></h2>
+                <p class="summary">NRI コラムが調査レポートの観点から整理したレポートです。GXコラム。政府によるGX投資支援の全体像と企業が押さえるべきポイント。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">調査レポート</span>
+                  
+                </div>
+              </article>
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2026-01-14</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20260114.html" target="_blank" rel="noreferrer">バイオ燃料・合成燃料普及に向けた証書制度の課題と展望</a></h2>
+                <p class="summary">NRI コラムが調査レポートの観点から整理した公開レポートです。論点は「バイオ燃料・合成燃料普及に向けた証書制度の課題と展望」です。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">調査レポート</span>
+                  
+                </div>
+              </article>
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2025-12-22</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20251222.html" target="_blank" rel="noreferrer">メドテックコラム Vol.4 転換期を迎えているSaMD市場～製薬企業にとっての事業機会とは？～</a></h2>
+                <p class="summary">NRI コラムが調査レポートの観点から整理したレポートです。メドテックコラム。Vol.4 転換期を迎えているSaMD市場～製薬企業にとっての事業機会とは？～。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">調査レポート</span>
+                  
+                </div>
+              </article>
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2025-12-11</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20251211.html" target="_blank" rel="noreferrer">GXコラム GX政策の概要と企業としての向かい方</a></h2>
+                <p class="summary">NRI コラムが調査レポートの観点から整理した公開レポートです。論点は「GXコラム GX政策の概要と企業としての向かい方」です。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">調査レポート</span>
+                  
+                </div>
+              </article>
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2025-12-10</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20251210.html" target="_blank" rel="noreferrer">連載・2040年の鉄道経営 第8回 持続可能な移動需要を促す仕組みづくり／総論</a></h2>
+                <p class="summary">NRI コラムがマクロの観点から整理したレポートです。連載・2040年の鉄道経営。第8回 持続可能な移動需要を促す仕組みづくり／総論。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">マクロ</span>
+                  
+                </div>
+              </article>
+              
+              <article class="report-card">
+                <div class="report-meta">
+                  <span class="source">NRI コラム</span>
+                  <span class="date">2025-12-09</span>
+                </div>
+                <h2><a href="https://www.nri.com/jp/media/column/mcs_blog/20251209.html" target="_blank" rel="noreferrer">連載・2040年の鉄道経営 第7回 鉄道会社独自の経済圏の将来像</a></h2>
+                <p class="summary">NRI コラムがマクロの観点から整理したレポートです。連載・2040年の鉄道経営。第7回 鉄道会社独自の経済圏の将来像。</p>
+                <div class="tag-row">
+                  
+                  <span class="tag">マクロ</span>
+                  
+                </div>
+              </article>
+              
+            </div>
+          </section>
+          
+        </div>
+
+        <aside class="side-column">
+          <section class="panel">
+            <h3>ソース状態</h3>
+            <div class="source-list">
+              
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>MURC 分析レポート</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>10件を抽出</p>
+                <small>10件 / 2026-04-10T16:53:16.481542</small>
+              </article>
+              
+              
+              
+              
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>みずほ銀行 リサーチ</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>手動シードを読み込みました。</p>
+                <small>8件 / 2026-04-10T16:53:16.777095</small>
+              </article>
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>みずほ銀行 産業調査</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>手動シードを読み込みました。</p>
+                <small>3件 / 2026-04-10T16:53:16.777642</small>
+              </article>
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>ニッセイ基礎研究所</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>12件を抽出</p>
+                <small>12件 / 2026-04-10T16:53:16.776248</small>
+              </article>
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>三井住友DSアセットマネジメント 日次レポート</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>12件を抽出</p>
+                <small>12件 / 2026-04-10T16:53:19.567087</small>
+              </article>
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>三菱UFJリサーチ&amp;コンサルティング</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>12件を抽出</p>
+                <small>12件 / 2026-04-10T16:53:15.178063</small>
+              </article>
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>伊藤忠総研</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>12件を抽出</p>
+                <small>12件 / 2026-04-10T16:53:19.858949</small>
+              </article>
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>大和総研</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>12件を抽出</p>
+                <small>12件 / 2026-04-10T16:53:17.075153</small>
+              </article>
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>日本政策投資銀行</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>2件を抽出</p>
+                <small>2件 / 2026-04-10T16:53:19.272559</small>
+              </article>
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>日本総研</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>12件を抽出</p>
+                <small>12件 / 2026-04-10T16:53:17.492354</small>
+              </article>
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>第一生命経済研究所</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>12件を抽出</p>
+                <small>12件 / 2026-04-10T16:53:18.463331</small>
+              </article>
+              
+              
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>野村総合研究所</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>12件を抽出</p>
+                <small>12件 / 2026-04-10T16:53:17.967281</small>
+              </article>
+              
+              
+            </div>
+          </section>
+
+          
+          <section class="panel">
+            <h3>別枠ソース</h3>
+            <div class="source-list">
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>Foreign Affairs</strong>
+                  <span class="status disabled">disabled</span>
+                </div>
+                <p>ライブ収集の対象外です。</p>
+              </article>
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>NRI コラム</strong>
+                  <span class="status ok">ok</span>
+                </div>
+                <p>12件を抽出</p>
+              </article>
+              
+              <article class="source-row">
+                <div class="source-top">
+                  <strong>The Diplomat</strong>
+                  <span class="status disabled">disabled</span>
+                </div>
+                <p>ライブ収集の対象外です。</p>
+              </article>
+              
+            </div>
+          </section>
+          
+
+          <section class="panel">
+            <h3>狙いどころ</h3>
+            <ul class="plain-list">
+              <li>ニュースより一段深い公開調査だけを集約</li>
+              <li>発行元横断でテーマ別に比較しやすくする</li>
+              <li>将来的に週次ダイジェストや論点クラスタへ拡張</li>
+            </ul>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script>
+      const searchInput = document.getElementById("searchInput");
+      const sourceFilter = document.getElementById("sourceFilter");
+      const tagFilter = document.getElementById("tagFilter");
+      const cards = Array.from(document.querySelectorAll(".report-card"));
+
+      function applyFilters() {
+        const query = searchInput.value.trim().toLowerCase();
+        const source = sourceFilter.value;
+        const tag = tagFilter.value;
+
+        cards.forEach((card) => {
+          const matchesQuery = !query || card.dataset.search.includes(query);
+          const matchesSource = !source || card.dataset.source === source;
+          const matchesTag = !tag || card.dataset.tags.includes(tag);
+          card.hidden = !(matchesQuery && matchesSource && matchesTag);
+        });
+      }
+
+      searchInput.addEventListener("input", applyFilters);
+      sourceFilter.addEventListener("change", applyFilters);
+      tagFilter.addEventListener("change", applyFilters);
+
+      document.querySelectorAll("[data-tag-chip]").forEach((button) => {
+        button.addEventListener("click", () => {
+          tagFilter.value = button.dataset.tagChip;
+          applyFilters();
+        });
+      });
+    </script>
+  </body>
+</html>

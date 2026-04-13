@@ -1,0 +1,145 @@
+{
+  "generated_at": "2026-04-11T01:53",
+  "mode": "live",
+  "primary_report_count": 119,
+  "secondary_report_count": 12,
+  "active_source_count": 12,
+  "primary_source_count": 12,
+  "sources": [
+    {
+      "slug": "foreign_affairs",
+      "name": "Foreign Affairs",
+      "lane": "secondary",
+      "status": "disabled",
+      "report_count": 0,
+      "message": "ライブ収集の対象外です。",
+      "fetched_at": "2026-04-10T16:53:19.858974"
+    },
+    {
+      "slug": "murc_analysis",
+      "name": "MURC 分析レポート",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 10,
+      "message": "10件を抽出",
+      "fetched_at": "2026-04-10T16:53:16.481542"
+    },
+    {
+      "slug": "nri_column",
+      "name": "NRI コラム",
+      "lane": "secondary",
+      "status": "ok",
+      "report_count": 12,
+      "message": "12件を抽出",
+      "fetched_at": "2026-04-10T16:53:18.043238"
+    },
+    {
+      "slug": "the_diplomat",
+      "name": "The Diplomat",
+      "lane": "secondary",
+      "status": "disabled",
+      "report_count": 0,
+      "message": "ライブ収集の対象外です。",
+      "fetched_at": "2026-04-10T16:53:19.858963"
+    },
+    {
+      "slug": "mizuho_rt",
+      "name": "みずほ銀行 リサーチ",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 8,
+      "message": "手動シードを読み込みました。",
+      "fetched_at": "2026-04-10T16:53:16.777095"
+    },
+    {
+      "slug": "mizuho_industry",
+      "name": "みずほ銀行 産業調査",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 3,
+      "message": "手動シードを読み込みました。",
+      "fetched_at": "2026-04-10T16:53:16.777642"
+    },
+    {
+      "slug": "nli",
+      "name": "ニッセイ基礎研究所",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 12,
+      "message": "12件を抽出",
+      "fetched_at": "2026-04-10T16:53:16.776248"
+    },
+    {
+      "slug": "smd_am_daily",
+      "name": "三井住友DSアセットマネジメント 日次レポート",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 12,
+      "message": "12件を抽出",
+      "fetched_at": "2026-04-10T16:53:19.567087"
+    },
+    {
+      "slug": "murc",
+      "name": "三菱UFJリサーチ&コンサルティング",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 12,
+      "message": "12件を抽出",
+      "fetched_at": "2026-04-10T16:53:15.178063"
+    },
+    {
+      "slug": "itochu_research",
+      "name": "伊藤忠総研",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 12,
+      "message": "12件を抽出",
+      "fetched_at": "2026-04-10T16:53:19.858949"
+    },
+    {
+      "slug": "dir",
+      "name": "大和総研",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 12,
+      "message": "12件を抽出",
+      "fetched_at": "2026-04-10T16:53:17.075153"
+    },
+    {
+      "slug": "dbj",
+      "name": "日本政策投資銀行",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 2,
+      "message": "2件を抽出",
+      "fetched_at": "2026-04-10T16:53:19.272559"
+    },
+    {
+      "slug": "jri",
+      "name": "日本総研",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 12,
+      "message": "12件を抽出",
+      "fetched_at": "2026-04-10T16:53:17.492354"
+    },
+    {
+      "slug": "dlri",
+      "name": "第一生命経済研究所",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 12,
+      "message": "12件を抽出",
+      "fetched_at": "2026-04-10T16:53:18.463331"
+    },
+    {
+      "slug": "nri",
+      "name": "野村総合研究所",
+      "lane": "primary",
+      "status": "ok",
+      "report_count": 12,
+      "message": "12件を抽出",
+      "fetched_at": "2026-04-10T16:53:17.967281"
+    }
+  ]
+}

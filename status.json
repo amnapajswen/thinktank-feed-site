@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-24T07:30",
+  "generated_at": "2026-07-24T18:30",
   "mode": "live",
   "primary_report_count": 108,
   "secondary_report_count": 12,
@@ -13,7 +13,7 @@
       "status": "disabled",
       "report_count": 0,
       "message": "ライブ収集の対象外です。",
-      "fetched_at": "2026-07-23T22:30:13.978403"
+      "fetched_at": "2026-07-24T09:30:16.142494"
     },
     {
       "slug": "murc_analysis",
@@ -22,7 +22,7 @@
       "status": "ok",
       "report_count": 10,
       "message": "10件を抽出",
-      "fetched_at": "2026-07-23T22:30:06.008162"
+      "fetched_at": "2026-07-24T09:30:06.629316"
     },
     {
       "slug": "nri_column",
@@ -31,7 +31,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-07-23T22:30:10.420249"
+      "fetched_at": "2026-07-24T09:30:12.448641"
     },
     {
       "slug": "the_diplomat",
@@ -40,7 +40,7 @@
       "status": "disabled",
       "report_count": 0,
       "message": "ライブ収集の対象外です。",
-      "fetched_at": "2026-07-23T22:30:13.978385"
+      "fetched_at": "2026-07-24T09:30:16.142476"
     },
     {
       "slug": "mizuho_rt",
@@ -49,7 +49,7 @@
       "status": "blocked",
       "report_count": 0,
       "message": "手動シードが未登録です。",
-      "fetched_at": "2026-07-23T22:30:09.169475"
+      "fetched_at": "2026-07-24T09:30:10.956145"
     },
     {
       "slug": "mizuho_industry",
@@ -58,7 +58,7 @@
       "status": "blocked",
       "report_count": 0,
       "message": "手動シードが未登録です。",
-      "fetched_at": "2026-07-23T22:30:09.169610"
+      "fetched_at": "2026-07-24T09:30:10.956222"
     },
     {
       "slug": "nli",
@@ -67,7 +67,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-07-23T22:30:09.169267"
+      "fetched_at": "2026-07-24T09:30:10.955900"
     },
     {
       "slug": "smd_am_daily",
@@ -76,7 +76,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-07-23T22:30:13.151884"
+      "fetched_at": "2026-07-24T09:30:15.478523"
     },
     {
       "slug": "murc",
@@ -85,7 +85,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-07-23T22:30:04.157937"
+      "fetched_at": "2026-07-24T09:30:04.321023"
     },
     {
       "slug": "itochu_research",
@@ -94,7 +94,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-07-23T22:30:13.978360"
+      "fetched_at": "2026-07-24T09:30:16.142450"
     },
     {
       "slug": "dir",
@@ -103,7 +103,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-07-23T22:30:09.417159"
+      "fetched_at": "2026-07-24T09:30:11.242573"
     },
     {
       "slug": "dbj",
@@ -112,7 +112,7 @@
       "status": "needs_tuning",
       "report_count": 2,
       "message": "一覧ページは取得できたが、日付付きリンクを抽出できませんでした。",
-      "fetched_at": "2026-07-23T22:30:12.753389"
+      "fetched_at": "2026-07-24T09:30:15.051642"
     },
     {
       "slug": "jri",
@@ -121,7 +121,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-07-23T22:30:09.810960"
+      "fetched_at": "2026-07-24T09:30:11.711087"
     },
     {
       "slug": "dlri",
@@ -130,7 +130,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-07-23T22:30:12.336040"
+      "fetched_at": "2026-07-24T09:30:14.529228"
     },
     {
       "slug": "nri",
@@ -139,7 +139,7 @@
       "status": "ok",
       "report_count": 12,
       "message": "12件を抽出",
-      "fetched_at": "2026-07-23T22:30:10.163147"
+      "fetched_at": "2026-07-24T09:30:12.231214"
     }
   ]
 }
